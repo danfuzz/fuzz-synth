@@ -1,3 +1,22 @@
+License for this repo
+=====================
+
+This repository is licensed under the Apache License, version 2.0. The full text
+of the license is reproduced below.
+
+**Note:** Instead of the usual highly-verbose file header recommended
+in the Appendix to the License, this project uses the following briefer
+file header (or footer in documentation):
+
+```
+Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed AS IS and WITHOUT
+WARRANTY under the Apache License, Version 2.0.
+Details: <http://www.apache.org/licenses/LICENSE-2.0>
+```
+
+- - - - - - - - - -
+<pre>
+
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -199,3 +218,4 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+</pre>
