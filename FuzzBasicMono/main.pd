@@ -1,18 +1,18 @@
-#N canvas 758 178 988 1068 12;
+#N canvas 286 34 814 1225 12;
 #X declare -path .;
 #X obj 9 252 declare -path .;
-#X obj 9 305 r notes;
-#X obj 9 337 unpack 0 0;
-#X obj 488 1026 throw~ outL;
-#X obj 520 992 throw~ outR;
-#X obj 9 402 mtof;
-#X obj 488 950 voice;
+#X obj 21 302 r notes;
+#X obj 21 334 unpack 0 0;
+#X obj 263 1119 throw~ outL;
+#X obj 295 1085 throw~ outR;
+#X obj 21 380 mtof;
+#X obj 263 1043 voice;
 #X text 7 65 FuzzBasicMono: Skeleton of a synth \, intended to be reasonably
 structured for expansion into a more "real" synthezizer \, and *without*
 distractions (such as a sequencer) which might make the structure less
 apparent., f 65;
-#X obj 274 500 select 0;
-#X msg 488 636 velocity \$1 \, on;
+#X obj 22 597 select 0;
+#X msg 263 729 velocity \$1 \, on;
 #X text 6 133 Note: The `voice` object is set up to receive named messages
 to set parameters (frequency and velocity) and to turn on and off \,
 as opposed to more directly taking note data. This seems to be a departure
@@ -20,55 +20,57 @@ from many Pd / Organelle patches \, but strikes me (@danfuzz) as a
 reasonable tactic \, and one that is straightforwardly extensible for
 handling both richer input as well as nontrivial voice configuration.
 , f 65;
-#X obj 274 461 int;
-#X obj 274 378 receive \$0-note-on-off;
-#X obj 10 502 send \$0-note-on-off;
+#X obj 22 558 int;
 #X text 320 1 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
-#X obj 21 435 send \$0-got-frequency;
-#X obj 291 731 receive \$0-active-frequency;
-#X obj 273 775 ==;
-#X obj 273 812 select 1;
-#X msg 273 853 off;
-#X obj 683 627 receive \$0-got-frequency;
-#X obj 665 663 int;
-#X msg 665 745 frequency \$1;
-#X obj 683 707 send \$0-active-frequency;
-#X obj 273 620 int;
-#X obj 274 539 bang;
-#X obj 291 583 receive \$0-got-frequency;
-#X text 45 727 Only turn off if the received note-off is for the frequency
+#X obj 40 414 send \$0-got-frequency;
+#X obj 40 828 receive \$0-active-frequency;
+#X obj 22 871 ==;
+#X obj 22 909 select 1;
+#X msg 22 950 off;
+#X obj 458 708 receive \$0-got-frequency;
+#X obj 440 756 int;
+#X msg 440 838 frequency \$1;
+#X obj 458 800 send \$0-active-frequency;
+#X obj 22 717 int;
+#X obj 22 636 bang;
+#X obj 40 680 receive \$0-got-frequency;
+#X text 31 776 Only turn off if the received note-off is for the frequency
 that's currently playing., f 31;
-#X obj 488 587 trigger float bang;
-#X text 313 405 Buffer the note number \, and only send messages when
-triggered by the interpretation of the note number. We have to do this
-because we can only decide what to do (start a note \, stop a note
-\, or ignore it) after we know the frequency.;
-#X obj 10 466 bang;
+#X obj 263 680 trigger float bang;
+#X obj 22 444 bang;
+#X obj 88 381 send \$0-got-velocity;
+#X obj 40 472 receive \$0-got-velocity;
+#X text 61 502 Buffer the velocity \, and only send messages to the
+voice once the note number is processed. We have to do this because
+we can only decide what to do (start a note \, stop a note \, or ignore
+it) _after_ we know the frequency \; and Pd's right-to-left processing
+nature means that the `unpack` above ends up sending the velocity _before_
+the note number.;
 #X connect 1 0 2 0;
 #X connect 2 0 5 0;
-#X connect 2 1 11 1;
-#X connect 5 0 15 0;
-#X connect 5 0 30 0;
+#X connect 2 1 28 0;
+#X connect 5 0 13 0;
+#X connect 5 0 27 0;
 #X connect 6 0 3 0;
 #X connect 6 1 4 0;
-#X connect 8 0 25 0;
-#X connect 8 1 28 0;
+#X connect 8 0 23 0;
+#X connect 8 1 26 0;
 #X connect 9 0 6 0;
 #X connect 11 0 8 0;
-#X connect 12 0 11 0;
-#X connect 16 0 17 1;
-#X connect 17 0 18 0;
-#X connect 18 0 19 0;
-#X connect 19 0 6 0;
-#X connect 20 0 21 1;
-#X connect 21 0 22 0;
-#X connect 21 0 23 0;
-#X connect 22 0 6 0;
-#X connect 24 0 17 0;
-#X connect 25 0 24 0;
-#X connect 26 0 24 1;
-#X connect 28 0 9 0;
-#X connect 28 1 21 0;
-#X connect 30 0 13 0;
+#X connect 14 0 15 1;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 17 0 6 0;
+#X connect 18 0 19 1;
+#X connect 19 0 20 0;
+#X connect 19 0 21 0;
+#X connect 20 0 6 0;
+#X connect 22 0 15 0;
+#X connect 23 0 22 0;
+#X connect 24 0 22 1;
+#X connect 26 0 9 0;
+#X connect 26 1 19 0;
+#X connect 27 0 11 0;
+#X connect 29 0 11 1;
