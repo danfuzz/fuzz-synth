@@ -1,57 +1,59 @@
-#N canvas 124 228 1056 925 12;
-#X obj 65 45 inlet;
-#X obj 26 549 phasor~;
-#X obj 275 125 send \$0-velocity;
-#X obj 222 151 send \$0-frequency;
-#X obj 72 407 receive \$0-frequency;
-#X obj 620 424 receive \$0-velocity;
-#X obj 574 604 sig~;
-#X obj 574 353 receive \$0-on;
-#X obj 869 473 receive \$0-off;
-#X obj 65 221 send \$0-off;
-#X obj 117 186 send \$0-on;
-#X obj 574 637 send~ \$0-amp;
-#X obj 869 511 float 0;
-#X obj 574 494 float 0;
-#X obj 620 459 expr max($f1 / 127 \, 1);
-#X text 574 305 Simplest possible envelope: Set amplitude to velocity
+#N canvas 678 219 1056 1119 12;
+#X obj 19 57 inlet;
+#X obj 15 669 phasor~;
+#X obj 531 170 send \$0-velocity;
+#X obj 403 170 send \$0-frequency;
+#X obj 61 527 receive \$0-frequency;
+#X obj 609 544 receive \$0-velocity;
+#X obj 563 724 sig~;
+#X obj 563 473 receive \$0-on;
+#X obj 858 593 receive \$0-off;
+#X obj 19 265 send \$0-off;
+#X obj 274 211 send \$0-on;
+#X obj 563 757 send~ \$0-amp;
+#X obj 858 631 float 0;
+#X obj 563 614 float 0;
+#X obj 609 579 expr max($f1 / 127 \, 1);
+#X text 563 425 Simplest possible envelope: Set amplitude to velocity
 (scaled) upon note-on \, and set it to zero upon note-off.;
-#X text 618 387 Velocity is received and "latched" (buffered) to be
+#X text 607 507 Velocity is received and "latched" (buffered) to be
 banged out upon note-on.;
-#X obj 26 438 float 0;
-#X text 70 370 Frequency is received and "latched" (buffered) to be
+#X obj 15 558 float 0;
+#X text 59 490 Frequency is received and "latched" (buffered) to be
 banged out upon note-on.;
-#X obj 72 490 receive \$0-on;
-#X text 71 468 Reset phase upon note-on.;
-#X obj 26 306 receive \$0-on;
-#X text 127 305 Update frequency upon note-on.;
-#X text 726 273 Envelope Section;
-#X text 127 272 Oscillator Section;
-#X obj 23 729 receive~ \$0-osc-sample-left;
-#X obj 23 858 outlet~;
-#X obj 41 766 receive~ \$0-amp;
-#X obj 23 801 *~;
-#X text 380 765 <-- Amps are driven by the envelope.;
-#X obj 243 859 outlet~;
-#X obj 261 763 receive~ \$0-amp;
-#X obj 243 799 *~;
-#X obj 243 727 receive~ \$0-osc-sample-right;
-#X text 186 694 Output Section;
-#X obj 49 603 send~ \$0-osc-sample-left;
-#X obj 49 650 send~ \$0-osc-sample-right;
-#X text 116 16 Input Section;
-#X obj 65 186 bang;
-#X obj 117 153 bang;
-#X obj 72 519 float 0;
+#X obj 61 610 receive \$0-on;
+#X text 60 588 Reset phase upon note-on.;
+#X obj 15 426 receive \$0-on;
+#X text 116 425 Update frequency upon note-on.;
+#X text 715 393 Envelope Section;
+#X text 116 392 Oscillator Section;
+#X obj 12 849 receive~ \$0-osc-sample-left;
+#X obj 12 978 outlet~;
+#X obj 30 886 receive~ \$0-amp;
+#X obj 12 921 *~;
+#X text 369 885 <-- Amps are driven by the envelope.;
+#X obj 232 979 outlet~;
+#X obj 250 883 receive~ \$0-amp;
+#X obj 232 919 *~;
+#X obj 232 847 receive~ \$0-osc-sample-right;
+#X text 175 814 Output Section;
+#X obj 38 723 send~ \$0-osc-sample-left;
+#X obj 38 770 send~ \$0-osc-sample-right;
+#X text 219 33 Input Section;
+#X obj 19 230 bang;
+#X obj 274 178 bang;
+#X obj 61 639 float 0;
 #X text 589 2 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
-#X text 93 549 Simplest possible oscillator function (a sawtooth).
+#X text 82 669 Simplest possible oscillator function (a sawtooth).
 ;
-#X obj 65 81 route off on on-top frequency velocity;
-#X text 416 89 **Note:** This voice doesn't distinguish between `on`
-and `on-top`. (However \, the latter should probably not reset the
-phase.);
+#X obj 19 125 route off on on-top frequency velocity, f 92;
+#X obj 147 311 send \$0-reset-phase;
+#X obj 147 246 trigger bang bang;
+#X obj 263 285 send \$0-on;
+#X text 62 90 **Note:** See `interface.md` for info on the meaning
+/ structure of each of these messages., f 50;
 #X connect 0 0 43 0;
 #X connect 1 0 35 0;
 #X connect 1 0 36 0;
@@ -76,7 +78,9 @@ phase.);
 #X connect 39 0 10 0;
 #X connect 40 0 1 1;
 #X connect 43 0 38 0;
-#X connect 43 1 39 0;
+#X connect 43 1 45 0;
 #X connect 43 2 39 0;
 #X connect 43 3 3 0;
 #X connect 43 4 2 0;
+#X connect 45 0 44 0;
+#X connect 45 1 46 0;

@@ -1,16 +1,9 @@
 #N canvas 22 309 623 541 12;
 #X declare -path .;
-#X obj 7 246 declare -path .;
-#X obj 7 436 throw~ outL;
-#X obj 39 402 throw~ outR;
-#X obj 7 360 voice;
-#X text 6 133 Note: The `voice` object is set up to receive named messages
-to set parameters (frequency and velocity) and to turn on and off \,
-as opposed to more directly taking note data. This seems to be a departure
-from many Pd / Organelle patches \, but strikes me (@danfuzz) as a
-reasonable tactic \, and one that is straightforwardly extensible for
-handling both richer input as well as nontrivial voice configuration.
-, f 65;
+#X obj 7 191 declare -path .;
+#X obj 7 381 throw~ outL;
+#X obj 39 347 throw~ outR;
+#X obj 7 305 voice;
 #X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
@@ -18,9 +11,12 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 structured for expansion into a more "real" synthezizer \, and _without_
 distractions (such as a sequencer) which might make the structure less
 apparent., f 65;
-#X obj 7 284 receive notes;
-#X obj 7 323 simple-mono;
+#X obj 7 229 receive notes;
+#X obj 7 268 simple-mono;
+#X text 6 133 **Note:** See the file `interface.md` in this patch for
+information about the interface used between `simple-mono` (the note
+parser) and `voice` (the controllable oscillator)., f 65;
 #X connect 3 0 1 0;
 #X connect 3 1 2 0;
-#X connect 7 0 8 0;
-#X connect 8 0 3 0;
+#X connect 6 0 7 0;
+#X connect 7 0 3 0;

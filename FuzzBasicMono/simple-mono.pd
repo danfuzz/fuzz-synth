@@ -1,9 +1,9 @@
-#N canvas 286 34 1261 1225 12;
+#N canvas 286 34 1124 1225 12;
 #X obj 174 255 unpack 0 0;
 #X obj 174 291 mtof;
 #X obj 174 518 select 0;
 #X obj 174 479 int;
-#X text 320 1 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+#X text 645 6 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 297 363 send \$0-got-frequency;
@@ -28,14 +28,14 @@ the note number.;
 #X text 87 571 Note-off message.;
 #X obj 174 330 trigger bang float;
 #X obj 174 223 inlet;
-#X obj 74 961 send \$0-is-on;
+#X obj 74 948 send \$0-is-on;
 #X obj 508 1182 outlet;
 #X obj 74 913 int 0;
 #X obj 394 675 int 1;
 #X obj 394 714 send \$0-is-on;
 #X obj 237 797 receive \$0-is-on;
-#X text 62 704 Only turn off if there is currently a note on \, and
-it's the same frequency as being told to turn off., f 31;
+#X text 42 713 Only turn off if there is currently a note on \, and
+it's the same frequency as being told to turn off., f 39;
 #X obj 23 835 expr ($f1 == $f2) && ($f3 == 1);
 #X obj 394 633 trigger bang bang float bang, f 53;
 #X msg 764 725 velocity \$1;
@@ -50,16 +50,16 @@ it's the same frequency as being told to turn off., f 31;
 #X obj 23 1045 send \$0-outlet;
 #X obj 764 762 send \$0-outlet;
 #X obj 900 850 send \$0-outlet;
-#X text 6 51 This receives note-velocity pairs on its inlet (`0` velocity
-to indicate note off) and in turn outputs `frequency` \, `velocity`
-\, `on` \, `on-top` \, and `off` messages as per the expectations of
-the companion `voice` object. This object specifically implements about
-the simplest _useful_ monophonic synth model: (a) There is no more
-than one outstanding `on` at any given time. (b) Later note-ons (without
-an intervening note-off) update the active frequency. (c) There is
-no memory of "overridden" notes. On that last point \, that is to say
-a note-off of the currently playing note causes an `off` output and
-_not_ a reversion to some other still-held-down note., f 65;
+#X text 6 66 This receives note-velocity pairs on its inlet (`0` velocity
+to indicate note off) and in turn outputs the messages expected by
+`voice` (see `interface.md` for details). This object specifically
+implements about the simplest _useful_ monophonic synth model: (a)
+There is no more than one outstanding `on` at any given time. (b) Later
+note-ons (without an intervening note-off) update the active frequency
+and velocity. (c) There is no memory of "overridden" notes. On that
+last point \, that is to say a note-off of the currently playing note
+causes an `off` output and _not_ a reversion to some other still-held-down
+note., f 86;
 #X connect 0 0 1 0;
 #X connect 0 1 15 0;
 #X connect 1 0 20 0;
