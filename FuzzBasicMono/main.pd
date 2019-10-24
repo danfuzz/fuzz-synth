@@ -1,18 +1,18 @@
 #N canvas 286 34 814 1225 12;
 #X declare -path .;
 #X obj 9 252 declare -path .;
-#X obj 21 302 r notes;
-#X obj 21 334 unpack 0 0;
-#X obj 263 1119 throw~ outL;
-#X obj 295 1085 throw~ outR;
-#X obj 21 380 mtof;
-#X obj 263 1043 voice;
+#X obj 173 259 r notes;
+#X obj 173 291 unpack 0 0;
+#X obj 282 1154 throw~ outL;
+#X obj 314 1120 throw~ outR;
+#X obj 173 337 mtof;
+#X obj 282 1078 voice;
 #X text 7 65 FuzzBasicMono: Skeleton of a synth \, intended to be reasonably
 structured for expansion into a more "real" synthezizer \, and *without*
 distractions (such as a sequencer) which might make the structure less
 apparent., f 65;
-#X obj 22 597 select 0;
-#X msg 263 729 velocity \$1 \, on;
+#X obj 174 554 select 0;
+#X msg 282 719 velocity \$1 \, on;
 #X text 6 133 Note: The `voice` object is set up to receive named messages
 to set parameters (frequency and velocity) and to turn on and off \,
 as opposed to more directly taking note data. This seems to be a departure
@@ -20,34 +20,36 @@ from many Pd / Organelle patches \, but strikes me (@danfuzz) as a
 reasonable tactic \, and one that is straightforwardly extensible for
 handling both richer input as well as nontrivial voice configuration.
 , f 65;
-#X obj 22 558 int;
+#X obj 174 515 int;
 #X text 320 1 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
-#X obj 40 414 send \$0-got-frequency;
+#X obj 192 371 send \$0-got-frequency;
 #X obj 40 828 receive \$0-active-frequency;
 #X obj 22 871 ==;
 #X obj 22 909 select 1;
 #X msg 22 950 off;
-#X obj 458 708 receive \$0-got-frequency;
-#X obj 440 756 int;
-#X msg 440 838 frequency \$1;
-#X obj 458 800 send \$0-active-frequency;
+#X obj 423 708 receive \$0-got-frequency;
+#X obj 405 756 int;
+#X msg 405 838 frequency \$1;
+#X obj 423 800 send \$0-active-frequency;
 #X obj 22 717 int;
 #X obj 22 636 bang;
 #X obj 40 680 receive \$0-got-frequency;
 #X text 31 776 Only turn off if the received note-off is for the frequency
 that's currently playing., f 31;
-#X obj 263 680 trigger float bang;
-#X obj 22 444 bang;
-#X obj 88 381 send \$0-got-velocity;
-#X obj 40 472 receive \$0-got-velocity;
-#X text 61 502 Buffer the velocity \, and only send messages to the
+#X obj 282 670 trigger float bang;
+#X obj 174 401 bang;
+#X obj 240 338 send \$0-got-velocity;
+#X obj 192 429 receive \$0-got-velocity;
+#X text 213 459 Buffer the velocity \, and only send messages to the
 voice once the note number is processed. We have to do this because
 we can only decide what to do (start a note \, stop a note \, or ignore
 it) _after_ we know the frequency \; and Pd's right-to-left processing
 nature means that the `unpack` above ends up sending the velocity _before_
 the note number.;
+#X text 266 621 Note-on message.;
+#X text 86 607 Note-off message.;
 #X connect 1 0 2 0;
 #X connect 2 0 5 0;
 #X connect 2 1 28 0;
