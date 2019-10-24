@@ -20,7 +20,7 @@ The following is a description of each of the messages and their meaning.
   `on-top` message. This message does not immediately alter the output of the
   voice.
 
-* `velocity <int 1..127>` &mdash; Indicate the velocity to use for the next `on`
+* `velocity <float 0..1>` &mdash; Indicate the velocity to use for the next `on`
   or `on-top` message. This message does not immediately alter the output of the
   voice.
 

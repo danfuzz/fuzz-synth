@@ -1,24 +1,21 @@
-#N canvas 286 34 1124 1225 12;
-#X obj 174 255 unpack 0 0;
-#X obj 174 291 mtof;
+#N canvas 252 205 1124 1225 12;
+#X obj 174 231 unpack 0 0;
+#X obj 174 292 mtof;
 #X obj 174 518 select 0;
-#X obj 174 479 int;
 #X text 645 6 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 297 363 send \$0-got-frequency;
 #X obj 130 769 receive \$0-active-frequency;
 #X obj 23 873 select 1;
-#X obj 918 677 receive \$0-got-frequency;
-#X obj 900 725 int;
+#X obj 932 686 receive \$0-got-frequency;
 #X msg 900 807 frequency \$1;
 #X obj 918 769 send \$0-active-frequency;
-#X obj 23 681 int;
 #X obj 23 600 bang;
-#X obj 41 644 receive \$0-got-frequency;
+#X obj 55 645 receive \$0-got-frequency;
 #X obj 241 292 send \$0-got-velocity;
-#X obj 192 393 receive \$0-got-velocity;
-#X text 211 413 Buffer the velocity \, and only send messages to the
+#X obj 206 393 receive \$0-got-velocity;
+#X text 225 413 Buffer the velocity \, and only send messages to the
 voice once the note number is processed. We have to do this because
 we can only decide what to do (start a note \, stop a note \, or ignore
 it) _after_ we know the frequency \; and Pd's right-to-left processing
@@ -27,7 +24,7 @@ the note number.;
 #X text 352 586 Note-on message.;
 #X text 87 571 Note-off message.;
 #X obj 174 330 trigger bang float;
-#X obj 174 223 inlet;
+#X obj 174 199 inlet;
 #X obj 74 948 send \$0-is-on;
 #X obj 508 1182 outlet;
 #X obj 74 913 int 0;
@@ -60,40 +57,47 @@ and velocity. (c) There is no memory of "overridden" notes. On that
 last point \, that is to say a note-off of the currently playing note
 causes an `off` output and _not_ a reversion to some other still-held-down
 note., f 86;
+#X obj 241 263 expr max(0 \, min($f1 / 127 \, 1));
+#X text 464 264 Convert MIDI velocity to fraction in range (0..1].
+;
+#X obj 900 725 float;
+#X obj 23 681 float;
+#X obj 174 479 float;
 #X connect 0 0 1 0;
-#X connect 0 1 15 0;
-#X connect 1 0 20 0;
-#X connect 2 0 13 0;
-#X connect 2 1 30 0;
-#X connect 3 0 2 0;
-#X connect 6 0 29 1;
-#X connect 7 0 39 0;
-#X connect 7 0 24 0;
-#X connect 8 0 9 1;
-#X connect 9 0 10 0;
-#X connect 9 0 11 0;
-#X connect 10 0 42 0;
-#X connect 12 0 29 0;
-#X connect 13 0 12 0;
-#X connect 14 0 12 1;
-#X connect 16 0 3 1;
-#X connect 20 0 3 0;
-#X connect 20 1 5 0;
-#X connect 21 0 0 0;
-#X connect 24 0 22 0;
-#X connect 25 0 26 0;
-#X connect 27 0 29 2;
-#X connect 29 0 7 0;
-#X connect 30 0 25 0;
-#X connect 30 1 33 0;
-#X connect 30 2 31 0;
-#X connect 30 3 9 0;
-#X connect 31 0 41 0;
-#X connect 32 0 33 1;
+#X connect 0 1 41 0;
+#X connect 1 0 17 0;
+#X connect 2 0 10 0;
+#X connect 2 1 27 0;
+#X connect 5 0 26 1;
+#X connect 6 0 36 0;
+#X connect 6 0 21 0;
+#X connect 7 0 43 1;
+#X connect 8 0 39 0;
+#X connect 10 0 44 0;
+#X connect 11 0 44 1;
+#X connect 13 0 45 1;
+#X connect 17 0 45 0;
+#X connect 17 1 4 0;
+#X connect 18 0 0 0;
+#X connect 21 0 19 0;
+#X connect 22 0 23 0;
+#X connect 24 0 26 2;
+#X connect 26 0 6 0;
+#X connect 27 0 22 0;
+#X connect 27 1 30 0;
+#X connect 27 2 28 0;
+#X connect 27 3 43 0;
+#X connect 28 0 38 0;
+#X connect 29 0 30 1;
+#X connect 30 0 32 0;
+#X connect 31 0 35 0;
+#X connect 32 0 31 0;
+#X connect 32 1 33 0;
 #X connect 33 0 35 0;
-#X connect 34 0 38 0;
-#X connect 35 0 34 0;
-#X connect 35 1 36 0;
-#X connect 36 0 38 0;
-#X connect 37 0 23 0;
-#X connect 39 0 40 0;
+#X connect 34 0 20 0;
+#X connect 36 0 37 0;
+#X connect 41 0 12 0;
+#X connect 43 0 8 0;
+#X connect 43 0 9 0;
+#X connect 44 0 26 0;
+#X connect 45 0 2 0;
