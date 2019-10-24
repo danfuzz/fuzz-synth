@@ -1,0 +1,26 @@
+#N canvas 901 122 698 586 12;
+#X text 9 88 Constructor: (no arguments);
+#X text 9 113 Inlet: Arbitrary list.;
+#X text 9 138 Outlet 1: The elements of the list \, in order.;
+#X text 9 163 Outlet 2: A bang \, after all elements have been produced.
+;
+#X text 512 32 by Dan Bornstein;
+#X text 512 57 danfuzz@milk.com;
+#X text 512 7 Part of FuzzKit;
+#X text 9 7 fk-list-foreach: Iterate over the elements of a list \,
+in order. Upon receiving input at its inlet \, this object immediately
+produces all elements on its first outlet in order \, follwed by a
+bang out on the second outlet. There is no time delay between any of
+the outputs.;
+#X obj 90 344 fk-list-foreach;
+#X obj 90 372 print element;
+#X obj 192 423 print done;
+#X msg 151 206 list foo bar baz;
+#X msg 151 234 10 20 30 40 50;
+#X msg 151 262 bang;
+#X text 200 261 `bang` is considered an empty list.;
+#X connect 8 0 9 0;
+#X connect 8 1 10 0;
+#X connect 11 0 8 0;
+#X connect 12 0 8 0;
+#X connect 13 0 8 0;

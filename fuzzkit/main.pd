@@ -1,0 +1,10 @@
+#N canvas 347 166 611 438 12;
+#X declare -path .;
+#X obj 9 96 declare -path .;
+#X obj 10 177 fk-list-foreach;
+#X obj 10 209 fk-string;
+#X obj 10 241 fk-announce;
+#X text 146 2 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
+Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
+#X text 8 56 FuzzKit: Pd / Organelle Utilities;

@@ -1,0 +1,36 @@
+#N canvas 1025 336 923 725 12;
+#X text 564 35 by Dan Bornstein;
+#X text 564 67 danfuzz@milk.com;
+#X text 564 3 Part of FuzzKit;
+#X text 5 3 fk-announce: [Organelle-specific] Sends graphics commands
+to "announce" an arbitrary message on the first outlet \, waits a moment
+\, then clears the display and sends a bang on the second outlet. The
+first outlet should ultimately get connected to the `oscOut` input
+line.;
+#X text 5 91 Constructor: Message to announce \, parsed as per `fk-string`.
+;
+#X text 5 123 Inlet: Bang \, which elicits the announcement.;
+#X text 5 155 Outlet 1: `oscOut` messages.;
+#X text 5 187 Outlet 2: Bang \, once the announcement has been cleared.
+;
+#X obj 137 271 fk-announce Hi_!!;
+#X obj 137 240 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 212 595 send oscOut;
+#X obj 267 331 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 253 362 fk-announce You;
+#X obj 355 439 fk-announce Rock!;
+#X obj 369 408 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 470 485 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X connect 8 0 10 0;
+#X connect 8 1 11 0;
+#X connect 8 1 12 0;
+#X connect 9 0 8 0;
+#X connect 12 0 10 0;
+#X connect 12 1 14 0;
+#X connect 12 1 13 0;
+#X connect 13 0 10 0;
+#X connect 13 1 15 0;

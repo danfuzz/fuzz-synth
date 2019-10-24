@@ -1,0 +1,34 @@
+#N canvas 674 191 746 626 12;
+#X text 564 35 by Dan Bornstein;
+#X text 564 67 danfuzz@milk.com;
+#X text 564 3 Part of FuzzKit;
+#X text 5 3 fk-string: Parse a symbol \, interpreting special characters
+such that one can create useful arbitrary strings. Specifically \,
+an underscore in the input is converted to a space in the output. (The
+intention is to eventually support percent-encoding for arbitrary characters.)
+A symbol constructor argument will get parsed but not output. A symbol
+input will get parsed and output. A bang input causes the last parsed
+value to be output.;
+#X text 5 133 Constructor: (optional) Initial value.;
+#X text 5 211 Outlet: The parsed form of the symbol;
+#X text 5 165 Inlet: Arbitrary symbol \, to parse and output. Bang
+\, to produce previously-parsed input.;
+#X obj 76 293 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 284 293 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X symbolatom 123 495 40 0 0 0 - - -;
+#X msg 76 324 symbol beep;
+#X msg 284 324 symbol Hello_there!;
+#X obj 222 404 fk-string What's_up_my_friend?;
+#X msg 284 359 symbol beep_boop;
+#X obj 29 404 fk-string;
+#X msg 76 359 symbol abc_123;
+#X connect 7 0 14 0;
+#X connect 8 0 12 0;
+#X connect 10 0 14 0;
+#X connect 11 0 12 0;
+#X connect 12 0 9 0;
+#X connect 13 0 12 0;
+#X connect 14 0 9 0;
+#X connect 15 0 14 0;

@@ -1,0 +1,50 @@
+#N canvas 758 178 785 865 12;
+#X declare -path .;
+#X obj 9 252 declare -path .;
+#X obj 9 305 r notes;
+#X obj 9 337 unpack 0 0;
+#X obj 9 775 throw~ outL;
+#X obj 41 741 throw~ outR;
+#X obj 9 454 mtof;
+#X obj 9 699 voice;
+#X msg 9 497 frequency \$1;
+#X msg 274 540 off;
+#X text 7 65 FuzzBasicMono: Skeleton of a synth \, intended to be reasonably
+structured for expansion into a more "real" synthezizer \, and *without*
+distractions (such as a sequencer) which might make the structure less
+apparent., f 65;
+#X obj 274 500 select 0;
+#X msg 327 540 velocity \$1 \, on;
+#X text 6 133 Note: The `voice` object is set up to receive named messages
+to set parameters (frequency and velocity) and to turn on and off \,
+as opposed to more directly taking note data. This seems to be a departure
+from many Pd / Organelle patches \, but strikes me (@danfuzz) as a
+reasonable tactic \, and one that is straightforwardly extensible for
+handling both richer input as well as nontrivial voice configuration.
+, f 65;
+#X obj 274 461 int;
+#X obj 274 378 receive \$0-note-on-off;
+#X obj 274 416 bang;
+#X obj 33 539 send \$0-note-on-off;
+#X text 313 405 Buffer the note number \, and only send messages when
+triggered by the setting of frequency. Without this arrangement \,
+the `on` would be sent before the voice gets its `frequency` (which
+would mean the _previous_ note would be played).;
+#X text 320 1 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
+Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
+#X connect 1 0 2 0;
+#X connect 2 0 5 0;
+#X connect 2 1 13 1;
+#X connect 5 0 7 0;
+#X connect 6 0 3 0;
+#X connect 6 1 4 0;
+#X connect 7 0 6 0;
+#X connect 7 0 16 0;
+#X connect 8 0 6 0;
+#X connect 10 0 8 0;
+#X connect 10 1 11 0;
+#X connect 11 0 6 0;
+#X connect 13 0 10 0;
+#X connect 14 0 15 0;
+#X connect 15 0 13 0;
