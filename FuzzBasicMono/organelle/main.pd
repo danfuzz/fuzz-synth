@@ -11,7 +11,7 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X text 169 101 **Note:** This path gets changed to `.` when building
 the final `.zip` output. `../pure` is correct only for development
 on a "big computer.";
-#X obj 18 172 r notes;
+#X obj 18 172 receive notes;
 #X connect 3 0 0 0;
 #X connect 3 1 1 0;
 #X connect 7 0 3 0;
