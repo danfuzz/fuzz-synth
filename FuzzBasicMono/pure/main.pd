@@ -1,20 +1,16 @@
-#N canvas 950 282 620 402 12;
+#N canvas 950 282 619 362 12;
 #X declare -path .;
-#X obj 11 132 declare -path .;
+#X obj 12 104 declare -path .;
 #X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
-#X obj 16 220 notein 1;
-#X obj 16 276 pack 0 0;
-#X obj 16 340 send notes;
-#X obj 135 222 catch~ outL;
-#X obj 160 256 catch~ outR;
-#X obj 135 304 dac~;
-#X text 13 73 This provides just enough of what's provided in the Organelle's
-`mother.pd` \, so that the patch can be used in "pure Pd.";
-#X obj 12 169 main;
+#X obj 11 145 notein 1;
+#X obj 11 201 pack 0 0;
+#X obj 11 312 dac~, f 6;
+#X text 13 73 "Pure Pd" main driver for this patch.;
+#X obj 11 253 synth~;
 #X connect 2 0 3 0;
 #X connect 2 1 3 1;
-#X connect 3 0 4 0;
-#X connect 5 0 7 0;
-#X connect 6 0 7 1;
+#X connect 3 0 6 0;
+#X connect 6 0 4 0;
+#X connect 6 1 4 1;
