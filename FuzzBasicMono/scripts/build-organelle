@@ -180,6 +180,7 @@ zipFile="${outDir}/${patchName}.zip"
     rsync-archive "${baseDir}/pure/" "${filesDir}" &&
     rsync-archive "${baseDir}/organelle/" "${filesDir}" &&
     cp "${baseDir}/product-info.txt" "${filesDir}" &&
+    cp "${baseDir}/README.md" "${filesDir}" &&
     fix-organelle-main &&
     rm -f "${zipFile}" &&
     (cd "${outDir}"; zip --quiet -r "${zipFile}" "${patchName}")

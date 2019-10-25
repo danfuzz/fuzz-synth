@@ -1,4 +1,4 @@
-#N canvas 271 368 634 347 12;
+#N canvas 986 196 634 417 12;
 #X obj 8 226 voice, f 10;
 #X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
@@ -12,7 +12,10 @@ parser) and `voice` (the controllable oscillator)., f 65;
 #X text 134 303 Stereo output.;
 #X text 7 61 Top-level synthesizer definition;
 #X obj 8 301 outlet~;
-#X obj 76 301 outlet~;
+#X obj 75 301 outlet~;
+#X text 106 187 Parses note messages \, and emits messages appropriate
+for intake by a mono synth voice.;
+#X text 109 229 Mono synth voice.;
 #X connect 0 0 8 0;
 #X connect 0 1 9 0;
 #X connect 2 0 0 0;
