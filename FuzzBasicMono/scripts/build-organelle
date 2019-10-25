@@ -84,6 +84,40 @@ fi
 # Helper functions
 #
 
+# Edits the Organelle-specific `main.pd`, so that its `declare` points at the
+# correct directory. As stored in the repo, it is correct for local development,
+# not deployment to an Organelle.
+function fix-organelle-main {
+    mainFile="${filesDir}/main.pd"
+    tmpFile="${mainFile}-new"
+
+    sed -e 's#\.\./pure#.#g' < "${mainFile}" > "${tmpFile}" || return 1
+
+    awk '
+    BEGIN { skipCommand = 0; }
+
+    /^#X text.*Note/ {
+        # Omit this command.
+        skipCommand = 1;
+    }
+
+    /declare -path/ {
+        sub(/declare -path [^;]*/, "declare -path .");
+    }
+
+    skipCommand == 1 {
+        if (match($0, /[^\\];$/) != 0) {
+            skipCommand = 0;
+        }
+        next;
+    }
+
+    { print; }
+    ' < "${mainFile}" > "${tmpFile}" || return 1
+
+    mv "${tmpFile}" "${mainFile}" || return 1
+}
+
 # Calls `rsync` so as to do an all-local (not actually remote) "archive" copy
 # (preserving permissions, modtimes, etc.).
 #
@@ -138,8 +172,9 @@ zipFile="${outDir}/${patchName}.zip"
 
 # Use `rsync` instead of `cp` because its directory-handling semantics are
 # actually more sensible.
-rsync-archive "${baseDir}/pure/" "${filesDir}"
-rsync-archive "${baseDir}/organelle/" "${filesDir}"
+rsync-archive "${baseDir}/pure/" "${filesDir}" || exit 1
+rsync-archive "${baseDir}/organelle/" "${filesDir}" || exit 1
+fix-organelle-main || exit 1
 
 rm -f "${zipFile}" || exit 1
 
