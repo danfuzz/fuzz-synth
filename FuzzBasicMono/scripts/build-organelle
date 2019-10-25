@@ -81,6 +81,39 @@ fi
 
 
 #
+# Helper functions
+#
+
+# Calls `rsync` so as to do an all-local (not actually remote) "archive" copy
+# (preserving permissions, modtimes, etc.).
+#
+# **Note:** We use `rsync` and not `cp` (even though this is a totally local
+# operation) because it has more well-defined and sensible behavior for a
+# variety of use cases (and e.g. specifically when copying a tree on top of
+# another tree).
+#
+# **Note:** Trailing slashes on source directory names are significant to
+# `rsync`.
+function rsync-archive {
+    # **Note:** We use checksum-based checking, because the default time-and-
+    # size method is counterproductive. Specifically, a time-and-size check will
+    # cause a failure to copy when two non-identical files happen to match in
+    # both size and timestamp, which does happen in practice specifically when
+    # running a build on a freshly checked-out source tree, wherein many many
+    # files have the same timestamps, which means that only the sizes come into
+    # play for the comparisons. And it's very easy to have a file size
+    # coincidence.
+    #
+    # **Note:** An earlier version of this code used `--ignore-times` instead
+    # of `--checksum`. The former worked equally well for this use case, except
+    # because it would always write the target files (even if identical), it
+    # would take significantly more time in the no-op case. (Specifically, some
+    # virus checkers can seriously degrade write performance.)
+    rsync --archive --checksum "$@"
+}
+
+
+#
 # Main script
 #
 
@@ -105,8 +138,8 @@ zipFile="${outDir}/${patchName}.zip"
 
 # Use `rsync` instead of `cp` because its directory-handling semantics are
 # actually more sensible.
-rsync --archive --checksum "${baseDir}/pure/" "${filesDir}"
-rsync --archive --checksum "${baseDir}/organelle/" "${filesDir}"
+rsync-archive "${baseDir}/pure/" "${filesDir}"
+rsync-archive "${baseDir}/organelle/" "${filesDir}"
 
 rm -f "${zipFile}" || exit 1
 
