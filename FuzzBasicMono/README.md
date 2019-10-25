@@ -13,11 +13,14 @@ purposes:
     unnecessary to go on a wild goose chase to understand the data flow of the
     patch.
 
+  * It defines a straightforward processing stream of MIDI notes, to note
+    parser, to synthesizer voice, to audio post-processing.
+
   * It defines a well-structured set of messages going from the note parser
     to the voice.
 
 The core synth of this patch is quite simple: It's a monophonic sawtooth wave,
-with no envelope.
+with no envelope, and which uses an LFO to pan left-and-right.
 
 ### How to use
 
