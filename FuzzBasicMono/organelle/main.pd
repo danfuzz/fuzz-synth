@@ -8,7 +8,7 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 18 225 synth~;
 #X text 8 59 Organelle-specific main driver for this patch.;
 #X obj 9 113 declare -path ../pure;
-#X text 169 101 **Note:** This path gets changed to `.` when building
+#X text 167 113 **Note:** This path gets changed to `.` when building
 the final `.zip` output. `../pure` is correct only for development
 on a "big computer.";
 #X obj 18 172 receive notes;
