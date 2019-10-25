@@ -1,20 +1,17 @@
-#N canvas 551 156 630 390 12;
+#N canvas 551 156 630 336 12;
 #X declare -path ../pure;
-#X obj 18 352 throw~ outL;
-#X obj 57 324 throw~ outR;
+#X obj 18 297 throw~ outL;
+#X obj 57 269 throw~ outR;
 #X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
-#X obj 18 172 notein 1;
-#X obj 18 228 pack 0 0;
-#X obj 18 280 synth~;
+#X obj 18 225 synth~;
 #X text 8 59 Organelle-specific main driver for this patch.;
 #X obj 9 113 declare -path ../pure;
 #X text 169 101 **Note:** This path gets changed to `.` when building
 the final `.zip` output. `../pure` is correct only for development
 on a "big computer.";
-#X connect 3 0 4 0;
-#X connect 3 1 4 1;
-#X connect 4 0 5 0;
-#X connect 5 0 0 0;
-#X connect 5 1 1 0;
+#X obj 18 172 r notes;
+#X connect 3 0 0 0;
+#X connect 3 1 1 0;
+#X connect 7 0 3 0;
