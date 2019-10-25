@@ -97,7 +97,13 @@ function fix-organelle-main {
     BEGIN { skipCommand = 0; }
 
     /^#X text.*Note/ {
-        # Omit this command.
+        # Replace the comment with something more accurate in context. (If it
+        # were removed entirely, it would mess up the object numbering.)
+        newLine = $0;
+        sub(/\*\*Note.*/, "Find the rest of the files in the same directory.;", newLine);
+        print newLine;
+
+        # Omit the original version of this command.
         skipCommand = 1;
     }
 
