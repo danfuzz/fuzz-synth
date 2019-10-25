@@ -176,9 +176,16 @@ zipFile="${outDir}/${patchName}.zip"
     cp "${baseDir}/product-info.txt" "${filesDir}" &&
     fix-organelle-main &&
     rm -f "${zipFile}" &&
-    (cd "${outDir}"; zip -r "${zipFile}" "${patchName}")
+    (cd "${outDir}"; zip --quiet -r "${zipFile}" "${patchName}")
 ) || exit 1
+
+echo 'Wrote file:'
+echo "  ${zipFile}"
+echo ''
 
 if (( ${copyToDesktop} )); then
     cp "${zipFile}" "${HOME}/Desktop"
+    echo '...and copied it to the desktop.'
 fi
+
+echo 'Done!'
