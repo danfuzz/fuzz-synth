@@ -175,10 +175,9 @@ zipFile="${outDir}/${patchName}.zip"
     rsync-archive "${baseDir}/organelle/" "${filesDir}" &&
     cp "${baseDir}/product-info.txt" "${filesDir}" &&
     fix-organelle-main &&
-    rm -f "${zipFile}"
+    rm -f "${zipFile}" &&
+    (cd "${outDir}"; zip -r "${zipFile}" "${patchName}")
 ) || exit 1
-
-(cd "${outDir}"; zip -r "${zipFile}" "${patchName}") || exit 1
 
 if (( ${copyToDesktop} )); then
     cp "${zipFile}" "${HOME}/Desktop"
