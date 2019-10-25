@@ -1,22 +1,20 @@
-#N canvas 22 309 623 541 12;
-#X declare -path .;
-#X obj 7 191 declare -path .;
-#X obj 7 381 throw~ outL;
-#X obj 39 347 throw~ outR;
-#X obj 7 305 voice;
+#N canvas 551 156 630 390 12;
+#X declare -path ../pure;
+#X obj 18 352 throw~ outL;
+#X obj 57 324 throw~ outR;
 #X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
-#X text 7 65 FuzzBasicMono: Skeleton of a synth \, intended to be reasonably
-structured for expansion into a more "real" synthezizer \, and _without_
-distractions (such as a sequencer) which might make the structure less
-apparent., f 65;
-#X obj 7 229 receive notes;
-#X obj 7 268 simple-mono;
-#X text 6 133 **Note:** See the file `interface.md` in this patch for
-information about the interface used between `simple-mono` (the note
-parser) and `voice` (the controllable oscillator)., f 65;
-#X connect 3 0 1 0;
-#X connect 3 1 2 0;
-#X connect 6 0 7 0;
-#X connect 7 0 3 0;
+#X obj 18 172 notein 1;
+#X obj 18 228 pack 0 0;
+#X obj 18 280 synth~;
+#X text 8 59 Organelle-specific main driver for this patch.;
+#X obj 9 113 declare -path ../pure;
+#X text 169 101 **Note:** This path gets changed to `.` when building
+the final `.zip` output. `../pure` is correct only for development
+on a "big computer.";
+#X connect 3 0 4 0;
+#X connect 3 1 4 1;
+#X connect 4 0 5 0;
+#X connect 5 0 0 0;
+#X connect 5 1 1 0;
