@@ -168,15 +168,14 @@ mkdir -p "${outDir}" || exit 1
 filesDir="${outDir}/${patchName}"
 zipFile="${outDir}/${patchName}.zip"
 
-(rm -rf "${filesDir}" && mkdir "${filesDir}") || exit 1
-
-# Use `rsync` instead of `cp` because its directory-handling semantics are
-# actually more sensible.
-rsync-archive "${baseDir}/pure/" "${filesDir}" || exit 1
-rsync-archive "${baseDir}/organelle/" "${filesDir}" || exit 1
-fix-organelle-main || exit 1
-
-rm -f "${zipFile}" || exit 1
+(
+    rm -rf "${filesDir}" &&
+    mkdir "${filesDir}" &&
+    rsync-archive "${baseDir}/pure/" "${filesDir}" &&
+    rsync-archive "${baseDir}/organelle/" "${filesDir}" &&
+    fix-organelle-main &&
+    rm -f "${zipFile}"
+) || exit 1
 
 (cd "${outDir}"; zip -r "${zipFile}" "${patchName}") || exit 1
 
