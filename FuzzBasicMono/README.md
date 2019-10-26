@@ -24,12 +24,16 @@ with no envelope, and which uses an LFO to pan left-and-right.
 
 ### How to use
 
-The full source for this patch provides both a pure ("vanilla") Pd version and
+The full source for this patch provides both a vanilla (pure) Pd version and
 a version adapted for use on the Organelle.
 
-#### Pure
+#### Vanilla
 
-Open the file `pure/main.pd`.
+Build an install file using the script `scripts/build-vanilla`. Open the file
+`main.pd` for direct use, or use the object `synth~` as a component in more
+complicated patches.
+
+For local development, open the file `vanilla/main.pd`.
 
 #### Organelle
 

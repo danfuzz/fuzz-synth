@@ -7,7 +7,7 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 11 145 notein 1;
 #X obj 11 201 pack 0 0;
 #X obj 11 312 dac~, f 6;
-#X text 13 73 "Pure Pd" main driver for this patch.;
+#X text 13 73 "Vanilla Pd" main driver for this patch.;
 #X obj 11 253 synth~;
 #X connect 2 0 3 0;
 #X connect 2 1 3 1;
