@@ -1,0 +1,22 @@
+#N canvas 1102 219 778 389 12;
+#X text 285 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
+Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
+#X obj 55 341 outlet~;
+#X obj 12 117 inlet;
+#X text 115 343 Instantaneous amplitude \, float in range [0..1].;
+#X text 61 117 Message `on <velocity>` or `off <velocity>`. `<velocity>`
+is float in range [0..1].;
+#X obj 77 219 clip 0 1;
+#X obj 12 166 route off on, f 19;
+#X obj 55 287 sig~;
+#X obj 12 219 float 0;
+#X text 13 61 Trivial envelope \, which is just full-on (per incoming
+velocity) upon `on` and instantaneous off upon `off`. (`off` velocity
+is ignored.);
+#X connect 2 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 8 0;
+#X connect 6 1 5 0;
+#X connect 7 0 1 0;
+#X connect 8 0 7 0;
