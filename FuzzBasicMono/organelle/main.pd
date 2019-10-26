@@ -2,13 +2,13 @@
 #X declare -path ../vanilla;
 #X obj 18 297 throw~ outL;
 #X obj 57 269 throw~ outR;
-#X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+#X text 156 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 18 225 synth~;
 #X text 8 59 Organelle-specific main driver for this patch.;
 #X obj 9 113 declare -path ../vanilla;
-#X text 167 113 **Note:** This path gets changed to `.` when building
+#X text 186 113 **Note:** This path gets changed to `.` when building
 the final `.zip` output. `../vanilla` is correct only for development
 on a "big computer.";
 #X obj 18 172 receive notes;
