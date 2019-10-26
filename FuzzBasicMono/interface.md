@@ -1,6 +1,10 @@
 Voice interface used by this patch
 ==================================
 
+**TODO:** Fix description to be more accurate with respect to recent progress,
+including three-stage top layer as well as internal waveform and envelope
+interfaces.
+
 This patch is structured with a model composed of two parts, a note interpreter
 and a voice oscillator, which is a fairly common arrangement in Pd / Organelle.
 Unlike many Pd synths, though, the interface between these two components is
