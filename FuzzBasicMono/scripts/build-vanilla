@@ -131,18 +131,20 @@ fi
 
 mkdir -p "${outDir}" || exit 1
 
-filesDir="${outDir}/${patchName}"
-zipFile="${outDir}/${patchName}.zip"
+variant='pd'
+dirName="${patchName}-${variant}"
+filesDir="${outDir}/${variant}/${patchName}"
+zipFile="${outDir}/${patchName}-${variant}.zip"
 
 (
     rm -rf "${filesDir}" &&
-    mkdir "${filesDir}" &&
+    mkdir -p "${filesDir}" &&
     rsync-archive "${baseDir}/vanilla/" "${filesDir}" &&
     rsync-archive "${baseDir}/doc" "${filesDir}" &&
     cp "${baseDir}/product-info.txt" "${filesDir}" &&
     cp "${baseDir}/README.md" "${filesDir}" &&
     rm -f "${zipFile}" &&
-    (cd "${outDir}"; zip --quiet -r "${zipFile}" "${patchName}")
+    (cd "${filesDir}/.."; zip --quiet -r "${zipFile}" "${patchName}")
 ) || exit 1
 
 echo 'Wrote file:'
