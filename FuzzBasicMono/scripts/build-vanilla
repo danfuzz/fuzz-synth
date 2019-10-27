@@ -138,6 +138,7 @@ zipFile="${outDir}/${patchName}.zip"
     rm -rf "${filesDir}" &&
     mkdir "${filesDir}" &&
     rsync-archive "${baseDir}/vanilla/" "${filesDir}" &&
+    rsync-archive "${baseDir}/doc" "${filesDir}" &&
     cp "${baseDir}/product-info.txt" "${filesDir}" &&
     cp "${baseDir}/README.md" "${filesDir}" &&
     rm -f "${zipFile}" &&
