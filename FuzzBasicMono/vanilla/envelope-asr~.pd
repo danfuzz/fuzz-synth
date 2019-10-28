@@ -7,8 +7,8 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X text 334 133 Message `on <velocity>` or `off <velocity>`. `<velocity>`
 is float in range [0..1].;
 #X obj 879 120 loadbang;
-#X obj 879 194 send \$0-attack-rate;
-#X obj 1027 194 send \$0-release-rate;
+#X obj 879 223 send \$0-attack-rate;
+#X obj 1027 223 send \$0-release-rate;
 #X obj 1027 122 loadbang;
 #X obj 285 177 route off on, f 14;
 #X obj 501 342 receive \$0-attack-rate;
@@ -30,10 +30,10 @@ and `off` velocity is ignored.;
 #X obj 182 304 receive~ \$0-to-snapshot;
 #X obj 314 616 line~ 0;
 #X text 937 80 Fixed Parameters;
-#X floatatom 879 157 6 0 10000 0 - - -;
-#X floatatom 1027 157 6 0 10000 0 - - -;
+#X floatatom 879 186 6 0 10000 0 - - -;
+#X floatatom 1027 186 6 0 10000 0 - - -;
 #X msg 448 415 0 \, \$1 \$2, f 13;
-#X text 843 220 These are slopes represented as the number of msec
+#X text 843 249 These are slopes represented as the number of msec
 to go from 0 to 1 (or back). Notably \, these are _not_ the number
 of msec to perform an attack or release \, as that would (for example)
 make all attacks and releases take the same amount of time (despite
@@ -43,9 +43,11 @@ the wrong amount of time., f 53;
 of msec (see comment at definition site) \, so snapshot the amplitude
 at the moment of release initiation \, and use it to calculate the
 correct ramp-down time., f 41;
+#X obj 879 151 float 50;
+#X obj 1027 153 float 1000;
 #X connect 1 0 8 0;
-#X connect 4 0 25 0;
-#X connect 7 0 26 0;
+#X connect 4 0 30 0;
+#X connect 7 0 31 0;
 #X connect 8 0 20 0;
 #X connect 8 1 15 0;
 #X connect 9 0 10 1;
@@ -62,3 +64,5 @@ correct ramp-down time., f 41;
 #X connect 25 0 5 0;
 #X connect 26 0 6 0;
 #X connect 27 0 23 0;
+#X connect 30 0 25 0;
+#X connect 31 0 26 0;
