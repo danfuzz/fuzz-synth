@@ -1,78 +1,64 @@
-#N canvas 985 157 1037 865 12;
-#X text 556 6 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+#N canvas 420 110 1260 919 12;
+#X text 769 11 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
-#X obj 12 117 inlet;
-#X text 537 736 Instantaneous amplitude \, float in range [0..1].;
-#X text 61 117 Message `on <velocity>` or `off <velocity>`. `<velocity>`
+#X obj 285 133 inlet;
+#X text 311 869 Instantaneous amplitude \, float in range [0..1].;
+#X text 334 133 Message `on <velocity>` or `off <velocity>`. `<velocity>`
 is float in range [0..1].;
-#X obj 639 139 float 1000;
-#X obj 787 141 float 5000;
-#X obj 639 102 loadbang;
-#X obj 639 175 send \$0-attack-rate;
-#X obj 787 176 send \$0-release-rate;
-#X obj 787 104 loadbang;
-#X obj 477 598 line~;
-#X obj 12 169 route off on, f 14;
-#X msg 477 411 0 \, \$1 \$2, f 13;
-#X obj 530 338 receive \$0-attack-rate;
-#X obj 477 377 pack 0 0;
-#X text 547 379 Pair `[<target-value> \, <msec>]`.;
-#X text 593 407 Initial `0` message to reset the line to zero \, then
+#X obj 879 120 loadbang;
+#X obj 879 194 send \$0-attack-rate;
+#X obj 1027 194 send \$0-release-rate;
+#X obj 1027 122 loadbang;
+#X obj 285 177 route off on, f 14;
+#X obj 501 342 receive \$0-attack-rate;
+#X obj 448 381 pack 0 0;
+#X text 518 383 Pair `[<target-value> \, <msec>]`.;
+#X text 559 411 Initial `0` message to reset the line to zero \, then
 a message to initiate the attack portion of the envelope., f 37;
-#X obj 267 661 snapshot~;
-#X obj 477 736 outlet~;
-#X text 5 718 The `release-rate` value is a rate not an absolute number
-of msec (see comment at definition site) \, so snapshot the amplitude
-and use it to calculate the correct ramp-down time.;
-#X msg 11 398 \$1 \, 0 \$2;
-#X obj 267 695 send \$0-amp-snap;
-#X obj 11 283 receive \$0-amp-snap;
-#X obj 11 363 pack 0 0;
-#X obj 267 626 bang;
-#X obj 267 592 receive \$0-bang-amp-snap;
-#X obj 64 325 expr $f1 * $f2 / 1000;
-#X obj 208 285 receive \$0-release-rate;
-#X obj 477 268 clip 0 1;
-#X obj 12 242 send \$0-bang-amp-snap;
-#X obj 635 611 metro 100;
-#X obj 616 661 snapshot~;
-#X floatatom 617 699 5 0 0 0 - - -;
-#X obj 622 573 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X text 13 61 Simple envelope \, which is just an attack-sustain-releae
+#X obj 314 843 outlet~;
+#X obj 251 355 receive \$0-release-rate;
+#X obj 448 272 clip 0 1;
+#X text 13 61 Simple envelope \, which is just an attack-sustain-release
 with fixed slopes. `on` velocity becomes the full amplitude value \,
 and `off` velocity is ignored.;
-#X text 633 210 These are slopes represented as the number of msec
+#X obj 156 389 expr $f1 * $f2;
+#X msg 156 422 0 \$1;
+#X obj 145 713 send~ \$0-to-snapshot;
+#X obj 156 270 bang;
+#X obj 156 342 snapshot~;
+#X obj 182 304 receive~ \$0-to-snapshot;
+#X obj 314 616 line~ 0;
+#X text 937 80 Fixed Parameters;
+#X floatatom 879 157 6 0 10000 0 - - -;
+#X floatatom 1027 157 6 0 10000 0 - - -;
+#X msg 448 415 0 \, \$1 \$2, f 13;
+#X text 843 220 These are slopes represented as the number of msec
 to go from 0 to 1 (or back). Notably \, these are _not_ the number
 of msec to perform an attack or release \, as that would (for example)
-make all attacks take the same amount of time (despite velocity differences)
-and also make a release-from-mid-attack take the wrong amount of time.
-, f 45;
-#X text 608 545 FIXME: Remove after debugging!;
-#X connect 1 0 11 0;
-#X connect 4 0 7 0;
-#X connect 5 0 8 0;
-#X connect 6 0 4 0;
-#X connect 9 0 5 0;
-#X connect 10 0 18 0;
-#X connect 10 0 17 0;
-#X connect 10 0 31 0;
-#X connect 11 0 29 0;
-#X connect 11 1 28 0;
-#X connect 12 0 10 0;
-#X connect 13 0 14 1;
-#X connect 14 0 12 0;
-#X connect 17 0 21 0;
-#X connect 20 0 10 0;
-#X connect 22 0 23 0;
-#X connect 22 0 26 0;
-#X connect 23 0 20 0;
-#X connect 24 0 17 0;
-#X connect 25 0 24 0;
-#X connect 26 0 23 1;
-#X connect 27 0 26 1;
-#X connect 28 0 14 0;
-#X connect 30 0 31 0;
-#X connect 31 0 32 0;
-#X connect 33 0 30 0;
+make all attacks and releases take the same amount of time (despite
+velocity differences) and also make a release-from-mid-attack take
+the wrong amount of time., f 53;
+#X text 5 733 The `release-rate` value is a rate not an absolute number
+of msec (see comment at definition site) \, so snapshot the amplitude
+at the moment of release initiation \, and use it to calculate the
+correct ramp-down time., f 41;
+#X connect 1 0 8 0;
+#X connect 4 0 25 0;
+#X connect 7 0 26 0;
+#X connect 8 0 20 0;
+#X connect 8 1 15 0;
+#X connect 9 0 10 1;
+#X connect 10 0 27 0;
+#X connect 14 0 17 1;
+#X connect 15 0 10 0;
+#X connect 17 0 18 0;
+#X connect 18 0 23 0;
+#X connect 20 0 21 0;
+#X connect 21 0 17 0;
+#X connect 22 0 21 0;
+#X connect 23 0 13 0;
+#X connect 23 0 19 0;
+#X connect 25 0 5 0;
+#X connect 26 0 6 0;
+#X connect 27 0 23 0;

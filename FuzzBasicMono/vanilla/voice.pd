@@ -1,4 +1,4 @@
-#N canvas 348 127 1054 1021 12;
+#N canvas 348 127 1002 1021 12;
 #X obj 19 57 inlet;
 #X obj 13 636 phasor~;
 #X obj 531 170 send \$0-velocity;
@@ -9,7 +9,7 @@
 #X obj 514 398 receive \$0-off;
 #X obj 19 265 send \$0-off;
 #X obj 274 211 send \$0-on;
-#X obj 550 617 send~ \$0-amp;
+#X obj 550 635 send~ \$0-amp;
 #X text 667 428 Velocity is received and "latched" (buffered) to be
 banged out upon note-on., f 45;
 #X text 43 457 Frequency is received and "latched" (buffered) to be
@@ -33,7 +33,7 @@ banged out upon note-on.;
 #X obj 19 230 bang;
 #X obj 274 178 bang;
 #X obj 59 606 float 0;
-#X text 483 4 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+#X text 517 4 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 19 125 route off on on-top frequency velocity, f 92;
@@ -46,19 +46,20 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 59 577 receive \$0-reset-phase;
 #X text 114 392 Update frequency upon `on` and `on-top`.;
 #X text 58 555 Reset phase upon `on` (but not `on-top`).;
-#X obj 550 578 envelope~;
 #X text 89 672 Example waveform function.;
-#X text 638 580 Example envelope generator.;
 #X msg 514 443 off 0;
 #X msg 637 524 on \$1;
 #X text 62 90 **Note:** See `doc/interface.md` for info on the meaning
 / structure of each of these messages., f 50;
+#X obj 550 578 envelope-asr~;
+#X text 659 577 Example envelope generator. See `envelope-gate~` for
+an even simpler example envelope., f 45;
 #X connect 0 0 33 0;
 #X connect 1 0 39 0;
 #X connect 4 0 38 1;
 #X connect 5 0 37 1;
 #X connect 6 0 37 0;
-#X connect 7 0 46 0;
+#X connect 7 0 44 0;
 #X connect 13 0 38 0;
 #X connect 16 0 19 0;
 #X connect 18 0 19 1;
@@ -76,11 +77,11 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X connect 33 4 2 0;
 #X connect 35 0 34 0;
 #X connect 35 1 36 0;
-#X connect 37 0 47 0;
+#X connect 37 0 45 0;
 #X connect 38 0 1 0;
 #X connect 39 0 26 0;
 #X connect 39 1 27 0;
 #X connect 40 0 31 0;
-#X connect 43 0 10 0;
-#X connect 46 0 43 0;
-#X connect 47 0 43 0;
+#X connect 44 0 47 0;
+#X connect 45 0 47 0;
+#X connect 47 0 10 0;
