@@ -1,4 +1,4 @@
-#N canvas 348 127 1002 1021 12;
+#N canvas 778 264 1002 1021 12;
 #X obj 19 57 inlet;
 #X obj 13 636 phasor~;
 #X obj 531 170 send \$0-velocity;

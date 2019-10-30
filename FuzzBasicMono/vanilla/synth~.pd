@@ -1,4 +1,4 @@
-#N canvas 986 196 634 337 12;
+#N canvas 666 185 634 337 12;
 #X obj 8 226 voice~, f 13;
 #X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.

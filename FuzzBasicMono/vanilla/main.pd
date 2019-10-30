@@ -1,4 +1,4 @@
-#N canvas 950 282 619 362 12;
+#N canvas 529 66 619 362 12;
 #X declare -path .;
 #X obj 12 104 declare -path .;
 #X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
