@@ -1,18 +1,29 @@
-#N canvas 1095 169 607 369 12;
+#N canvas 1095 169 636 422 12;
 #X declare -path .;
 #X obj 12 104 declare -path .;
 #X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
-#X floatatom 250 316 8 0 0 0 - - -;
+#X floatatom 23 337 8 0 0 0 - - -;
 #X text 14 73 "Vanilla Pd" example for this patch.;
-#X floatatom 336 225 7 0 0 0 - - -;
-#X obj 250 185 ctl-to-pm1;
-#X floatatom 334 159 5 0 0 0 - - -;
-#X obj 250 123 ctlin 21;
-#X obj 250 266 infiknob 1 20000 0.1;
+#X floatatom 109 246 7 0 0 0 - - -;
+#X obj 23 206 ctl-to-pm1;
+#X floatatom 107 180 5 0 0 0 - - -;
+#X obj 23 144 ctlin 21;
+#X floatatom 252 339 8 0 0 0 - - -;
+#X floatatom 338 248 7 0 0 0 - - -;
+#X obj 252 208 ctl-to-pm1;
+#X floatatom 336 182 5 0 0 0 - - -;
+#X obj 252 146 ctlin 22;
+#X obj 252 289 infiknob -10 10 0.001;
+#X obj 23 287 infiknob 1 20000 0.1;
 #X connect 5 0 4 0;
-#X connect 5 0 8 0;
+#X connect 5 0 14 0;
 #X connect 7 0 5 0;
 #X connect 7 0 6 0;
-#X connect 8 0 2 0;
+#X connect 10 0 9 0;
+#X connect 10 0 13 0;
+#X connect 12 0 10 0;
+#X connect 12 0 11 0;
+#X connect 13 0 8 0;
+#X connect 14 0 2 0;

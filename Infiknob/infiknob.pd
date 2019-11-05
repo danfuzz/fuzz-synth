@@ -1,4 +1,4 @@
-#N canvas 125 46 1362 1358 12;
+#N canvas 3 23 1362 1358 12;
 #X text 887 8 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
@@ -66,10 +66,8 @@ the controller passes through the zero-point., f 41;
 #X obj 701 653 trigger bang float;
 #X obj 15 1240 expr rint($f1 / quant\$0) * quant\$0;
 #X obj 813 997 receive \$0-metro-amt;
-#X obj 824 707 expr min(1 \, ($f1 - 0.5) * 2 + 0.05), f 20;
 #X obj 824 750 send \$0-metro-amt;
 #X obj 436 759 send \$0-metro-amt;
-#X obj 436 716 expr max(-1 \, ($f1 + 0.5) * 2 - 0.05), f 22;
 #X text 812 963 Value in range (-1..1) indicating direction and amount
 of auto-increment., f 39;
 #X obj 813 1092 expr $f1 / 20;
@@ -88,8 +86,6 @@ f 26;
 second one emits the offset from center based on the current direction
 of travel. This flows into an adder below \, to produce the final output.
 ;
-#X obj 813 1041 expr copysign(pow((max\$0 - min\$0) / 4 \, abs($f1))
-\, $f1), f 30;
 #X obj 208 276 route reset set;
 #X text 764 932 Auto-increment section;
 #X obj 417 436 send \$0-reset;
@@ -117,6 +113,10 @@ MIDI control value in the range [0..127] into a value in the range
 [-1..1] as expected by this object. Similarly `01-to-pm1` converts
 from the range [0..1] (which is notably the range of an Organelle control
 knob.), f 102;
+#X obj 824 707 expr min(1 \, ($f1 - 0.5) * 2 + 0.01), f 20;
+#X obj 436 716 expr max(-1 \, ($f1 + 0.5) * 2 - 0.01), f 22;
+#X obj 813 1041 expr copysign(pow((max\$0 - min\$0) / 5 \, abs($f1))
+\, $f1), f 30;
 #X connect 3 0 11 0;
 #X connect 4 0 10 0;
 #X connect 5 0 8 0;
@@ -134,10 +134,10 @@ knob.), f 102;
 #X connect 17 0 18 0;
 #X connect 20 0 24 0;
 #X connect 20 1 37 0;
-#X connect 21 0 78 0;
+#X connect 21 0 75 0;
 #X connect 22 0 15 0;
 #X connect 22 0 17 0;
-#X connect 22 0 71 0;
+#X connect 22 0 69 0;
 #X connect 24 0 6 0;
 #X connect 25 0 27 0;
 #X connect 25 1 26 0;
@@ -156,27 +156,27 @@ knob.), f 102;
 #X connect 49 0 51 0;
 #X connect 50 0 52 0;
 #X connect 51 0 52 0;
-#X connect 52 0 74 0;
-#X connect 55 0 73 0;
+#X connect 52 0 72 0;
+#X connect 55 0 71 0;
 #X connect 55 1 56 0;
 #X connect 58 0 57 0;
-#X connect 58 1 66 0;
+#X connect 58 1 87 0;
 #X connect 60 0 59 0;
-#X connect 60 1 63 0;
+#X connect 60 1 86 0;
 #X connect 61 0 28 0;
-#X connect 62 0 77 0;
-#X connect 63 0 64 0;
-#X connect 66 0 65 0;
-#X connect 68 0 74 1;
-#X connect 71 0 72 0;
-#X connect 73 0 33 0;
-#X connect 74 0 75 0;
-#X connect 74 1 75 1;
-#X connect 75 0 54 0;
-#X connect 77 0 68 0;
-#X connect 78 0 38 0;
-#X connect 78 1 82 0;
-#X connect 78 2 25 0;
-#X connect 82 0 83 0;
-#X connect 82 1 81 0;
-#X connect 82 2 80 0;
+#X connect 62 0 88 0;
+#X connect 66 0 72 1;
+#X connect 69 0 70 0;
+#X connect 71 0 33 0;
+#X connect 72 0 73 0;
+#X connect 72 1 73 1;
+#X connect 73 0 54 0;
+#X connect 75 0 38 0;
+#X connect 75 1 79 0;
+#X connect 75 2 25 0;
+#X connect 79 0 80 0;
+#X connect 79 1 78 0;
+#X connect 79 2 77 0;
+#X connect 86 0 63 0;
+#X connect 87 0 64 0;
+#X connect 88 0 66 0;
