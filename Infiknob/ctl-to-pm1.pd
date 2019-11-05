@@ -1,0 +1,15 @@
+#N canvas 489 291 619 289 12;
+#X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
+Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
+#X obj 77 116 inlet;
+#X obj 77 247 outlet;
+#X text 6 58 Converts an incoming MIDI control value (int in range
+[0..127]) to a fraction in the range [-1..1].;
+#X obj 77 168 expr ($f1 / 127) * 2 - 1;
+#X text 294 170 Main calculation.;
+#X text 293 208 Round away pointless precision.;
+#X obj 77 209 expr rint($f1 * 1000) / 1000;
+#X connect 1 0 4 0;
+#X connect 4 0 7 0;
+#X connect 7 0 2 0;

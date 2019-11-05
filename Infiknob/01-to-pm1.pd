@@ -1,0 +1,11 @@
+#N canvas 489 291 619 249 12;
+#X text 139 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
+Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
+#X obj 77 116 inlet;
+#X obj 77 196 outlet;
+#X text 6 58 Converts an incoming value in the range [0..1] to a value
+in the range [-1..1].;
+#X obj 77 156 expr ($f1 * 2) - 1;
+#X connect 1 0 4 0;
+#X connect 4 0 2 0;
