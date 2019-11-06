@@ -1,4 +1,4 @@
-#N canvas 338 23 1276 1130 12;
+#N canvas 429 41 1270 1013 12;
 #X text 792 10 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
@@ -11,59 +11,56 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 954 158 trigger bang bang bang bang;
 #X obj 954 115 loadbang;
 #X text 905 85 Contructor arguments / initial values;
-#X obj 1023 482 expr (min\$0 + max\$0) / 2;
-#X obj 981 550 float 1;
-#X obj 981 580 value frozen\$0;
+#X obj 1047 452 expr (min\$0 + max\$0) / 2;
+#X obj 1041 539 value frozen\$0;
 #X obj 208 232 inlet;
 #X obj 954 419 receive \$0-reset;
 #X obj 954 372 send \$0-reset;
-#X obj 36 1003 expr max(min($f1 \, max\$0) \, min\$0);
-#X obj 36 1062 outlet;
-#X obj 36 944 receive \$0-to-outlet;
+#X obj 27 893 expr max(min($f1 \, max\$0) \, min\$0);
+#X obj 27 952 outlet;
+#X obj 27 834 receive \$0-to-outlet;
 #X obj 25 404 trigger bang bang;
 #X obj 25 485 send \$0-output-center;
-#X obj 35 826 receive \$0-output-center;
-#X obj 35 862 expr center\$0;
-#X obj 35 897 send \$0-to-outlet;
+#X obj 26 716 receive \$0-output-center;
+#X obj 26 752 expr center\$0;
+#X obj 26 787 send \$0-to-outlet;
 #X obj 141 446 send \$0-reset;
-#X obj 36 1033 change;
-#X text 288 977 Round to the quantization increment.;
-#X text 287 1004 Clip to the limits.;
-#X obj 36 974 expr rint($f1 / quant\$0) * quant\$0;
-#X obj 956 618 float 50;
-#X obj 956 649 value midincs\$0;
+#X obj 27 923 change;
+#X text 279 867 Round to the quantization increment.;
+#X text 278 894 Clip to the limits.;
+#X obj 27 864 expr rint($f1 / quant\$0) * quant\$0;
+#X obj 1023 597 value midincs\$0;
 #X obj 208 276 route reset set;
-#X text 583 678 Auto-increment section;
+#X text 607 670 Auto-increment section;
 #X obj 417 436 send \$0-reset;
 #X obj 259 403 trigger bang float bang;
 #X obj 259 487 send \$0-output-center;
-#N canvas 1285 203 1006 841 auto-increment 0;
-#X obj 124 315 metro 50;
-#X text 573 192 Convert to increment per 50msec (1/20 sec).;
-#X obj 456 191 expr $f1 / 20;
-#X text 677 136 Increment per second \, set up as exponentially increasing
+#N canvas 1285 203 903 516 auto-increment 0;
+#X obj 52 167 metro 50;
+#X text 495 168 Convert to increment per 50msec (1/20 sec).;
+#X obj 378 167 expr $f1 / 20;
+#X text 599 112 Increment per second \, set up as exponentially increasing
 in magnitude as the control moves away from center., f 39;
-#X obj 124 446 +;
-#X obj 456 140 expr copysign(pow((max\$0 - min\$0) / 5 \, abs($f1))
+#X obj 52 373 +;
+#X obj 378 116 expr copysign(pow((max\$0 - min\$0) / 5 \, abs($f1))
 \, $f1), f 30;
-#X obj 98 69 inlet;
-#X text 26 33 Toggle auto-increment (`0` to turn it off \, `1` to turn
+#X obj 23 55 inlet;
+#X text 10 12 Toggle auto-increment (`0` to turn it off \, `1` to turn
 it on)., f 32;
-#X obj 456 96 inlet;
-#X obj 98 134 select 0;
-#X msg 98 181 stop;
-#X msg 151 182 bang;
-#X text 324 29 Amount of auto-increment. Float in range [-1..1] to
-indicate how far from center the control is and in which direction.
-The further away from center \, the faster the rate of change., f
-49;
-#X obj 127 594 outlet;
-#X obj 419 599 outlet;
-#X text 109 618 Value to send to the main outlet.;
-#X text 404 624 New center value.;
-#X obj 124 347 expr max(min(center\$0 + $f2 \, max\$0) \, min\$0) \;
+#X obj 378 76 inlet;
+#X obj 23 92 select 0;
+#X msg 23 123 stop;
+#X msg 76 123 bang;
+#X text 308 8 Amount of auto-increment. Float in range [-1..1] to indicate
+how far from center the control is and in which direction. The further
+away from center \, the faster the rate of change., f 49;
+#X obj 52 457 outlet;
+#X obj 333 458 outlet;
+#X text 37 481 Value to send to the main outlet.;
+#X text 318 483 New center value.;
+#X obj 52 210 expr max(min(center\$0 + $f2 \, max\$0) \, min\$0) \;
 if($f2 < 0 \, -1 \, 1) * midincs\$0 / 2 * quant\$0, f 47;
-#X text 467 337 The first expression here calculates the new center
+#X text 395 200 The first expression here calculates the new center
 value. The second one emits the offset from center based on the current
 direction of travel. This flows into an adder below \, to produce the
 final value output.;
@@ -80,16 +77,14 @@ final value output.;
 #X connect 17 0 4 0;
 #X connect 17 0 14 0;
 #X connect 17 1 4 1;
-#X restore 542 775 pd auto-increment;
-#X obj 541 839 send \$0-to-outlet;
-#X obj 658 813 value center\$0;
-#X text 674 770 See comments in this sub-object for more details.,
-f 28;
-#X obj 658 736 receive \$0-auto-amt;
+#X restore 566 767 pd auto-increment;
+#X obj 566 831 send \$0-to-outlet;
+#X obj 682 805 value center\$0;
+#X obj 682 728 receive \$0-auto-amt;
 #X text 13 8 "Infinite" range knob. See `README.md` for details.,
 f 52;
 #X obj 338 461 value center\$0;
-#X obj 1023 513 value center\$0;
+#X obj 1047 479 value center\$0;
 #X text 14 28 Constructor arguments (in order): `min\$0` -- minimum
 value in the output range \; `max\$0` -- maximum value in the output
 range \; `quant\$0` -- increment quantum (smallest possible increment
@@ -153,9 +148,9 @@ current center value., f 38;
 #X restore 566 523 pd control-input;
 #X obj 566 622 send \$0-to-outlet;
 #X obj 620 593 send \$0-auto-toggle;
-#X obj 542 704 receive \$0-auto-toggle;
+#X obj 566 696 receive \$0-auto-toggle;
 #X obj 675 565 send \$0-auto-amt;
-#N canvas 1172 526 763 681 freeze-handler 1;
+#N canvas 1172 526 763 681 freeze-handler 0;
 #X obj 28 140 inlet;
 #X obj 181 139 inlet;
 #X text 27 113 Input control value;
@@ -205,47 +200,53 @@ control range \; `frozen\$0` -- boolean indicating whether the control
 is "frozen" (starts frozen upon initialization and becomes unfrozen
 once the input control is moved to near the center of its range),
 f 82;
+#X msg 1000 626 0;
+#X obj 1000 654 send \$0-auto-toggle;
+#X msg 1041 512 1;
+#X msg 1023 570 50;
 #X connect 1 0 6 0;
 #X connect 2 0 5 0;
 #X connect 3 0 4 0;
-#X connect 7 0 15 0;
+#X connect 7 0 14 0;
 #X connect 7 1 3 0;
 #X connect 7 2 2 0;
 #X connect 7 3 1 0;
 #X connect 8 0 7 0;
-#X connect 10 0 43 0;
-#X connect 11 0 12 0;
-#X connect 13 0 31 0;
-#X connect 14 0 10 0;
-#X connect 14 0 11 0;
-#X connect 14 0 29 0;
-#X connect 16 0 25 0;
-#X connect 18 0 28 0;
-#X connect 19 0 20 0;
-#X connect 19 1 24 0;
+#X connect 10 0 40 0;
+#X connect 12 0 29 0;
+#X connect 13 0 10 0;
+#X connect 13 0 55 0;
+#X connect 13 0 57 0;
+#X connect 13 0 58 0;
+#X connect 15 0 24 0;
+#X connect 17 0 27 0;
+#X connect 18 0 19 0;
+#X connect 18 1 23 0;
+#X connect 20 0 21 0;
 #X connect 21 0 22 0;
-#X connect 22 0 23 0;
-#X connect 25 0 17 0;
-#X connect 28 0 16 0;
-#X connect 29 0 30 0;
-#X connect 31 0 19 0;
-#X connect 31 1 34 0;
-#X connect 31 2 54 0;
+#X connect 24 0 16 0;
+#X connect 27 0 15 0;
+#X connect 29 0 18 0;
+#X connect 29 1 32 0;
+#X connect 29 2 51 0;
+#X connect 32 0 33 0;
+#X connect 32 1 39 0;
+#X connect 32 2 31 0;
 #X connect 34 0 35 0;
-#X connect 34 1 42 0;
-#X connect 34 2 33 0;
-#X connect 36 0 37 0;
-#X connect 36 1 38 0;
-#X connect 40 0 36 1;
-#X connect 46 0 47 0;
-#X connect 46 1 48 0;
-#X connect 46 2 50 0;
-#X connect 49 0 36 0;
-#X connect 51 0 46 0;
-#X connect 51 1 53 0;
-#X connect 51 2 56 0;
-#X connect 52 0 51 1;
-#X connect 54 0 51 0;
-#X connect 54 1 52 0;
-#X connect 54 2 55 0;
-#X connect 55 0 51 2;
+#X connect 34 1 36 0;
+#X connect 37 0 34 1;
+#X connect 43 0 44 0;
+#X connect 43 1 45 0;
+#X connect 43 2 47 0;
+#X connect 46 0 34 0;
+#X connect 48 0 43 0;
+#X connect 48 1 50 0;
+#X connect 48 2 53 0;
+#X connect 49 0 48 1;
+#X connect 51 0 48 0;
+#X connect 51 1 49 0;
+#X connect 51 2 52 0;
+#X connect 52 0 48 2;
+#X connect 55 0 56 0;
+#X connect 57 0 11 0;
+#X connect 58 0 28 0;
