@@ -67,25 +67,6 @@ of the control., f 25;
 #X obj 259 487 send \$0-output-center;
 #X text 1076 382 Increment quantum.;
 #X text 802 815 Number of quanta up/down from center., f 24;
-#X text 13 8 "Infinite" range knob. With this object \, one can use
-fixed-range non-spring-loaded controls to accurately pick values from
-an arbitrarily large range. Specifically \, this takes a "raw" control
-value in the range [-1..1] \, and treats it as a control over a (generally
-speaking) wider range of values. The middle half of the input range
-selects individual values around the current value \, and the extremes
-of the input range cause the value to auto-increment towards the respective
-ends of the output range \, at a rate that increases as the control
-veers further from the center. Constructor arguments are `min` (minimum
-value in range) \, `max` (maximum value in range) \, and `quant` (smallest
-quantum of change / quantization amount)., f 102;
-#X text 12 179 Messages: Number -- a control value \; `reset` -- reset
-the control \; `set <value>` -- reset the control and set its value
-to as given., f 102;
-#X text 12 129 Note: The included object `ctl-to-pm1` converts a standard
-MIDI control value in the range [0..127] into a value in the range
-[-1..1] as expected by this object. Similarly `01-to-pm1` converts
-from the range [0..1] (which is notably the range of an Organelle control
-knob.), f 102;
 #X obj 824 707 expr min(1 \, ($f1 - 0.5) * 2 + 0.01), f 20;
 #X obj 436 716 expr max(-1 \, ($f1 + 0.5) * 2 - 0.01), f 22;
 #N canvas 1285 203 1006 841 auto-increment 0;
@@ -146,6 +127,8 @@ final value output.;
 #X obj 824 750 send \$0-auto-amt;
 #X obj 701 686 send \$0-auto-on;
 #X obj 736 785 send \$0-auto-off;
+#X text 13 8 "Infinite" range knob. See `README.md` for details.,
+f 52;
 #X connect 3 0 11 0;
 #X connect 4 0 10 0;
 #X connect 5 0 8 0;
@@ -181,11 +164,11 @@ final value output.;
 #X connect 40 0 41 0;
 #X connect 44 0 29 0;
 #X connect 47 0 54 0;
-#X connect 47 1 81 0;
-#X connect 48 0 77 0;
-#X connect 48 1 67 0;
-#X connect 49 0 80 0;
-#X connect 49 1 66 0;
+#X connect 47 1 78 0;
+#X connect 48 0 74 0;
+#X connect 48 1 64 0;
+#X connect 49 0 77 0;
+#X connect 49 1 63 0;
 #X connect 50 0 28 0;
 #X connect 52 0 53 0;
 #X connect 54 0 33 0;
@@ -195,12 +178,12 @@ final value output.;
 #X connect 59 0 60 0;
 #X connect 59 1 58 0;
 #X connect 59 2 57 0;
-#X connect 66 0 79 0;
-#X connect 67 0 78 0;
-#X connect 68 0 71 0;
-#X connect 68 1 72 0;
-#X connect 69 0 68 0;
-#X connect 70 0 68 0;
-#X connect 74 0 69 0;
-#X connect 75 0 70 0;
-#X connect 76 0 68 1;
+#X connect 63 0 76 0;
+#X connect 64 0 75 0;
+#X connect 65 0 68 0;
+#X connect 65 1 69 0;
+#X connect 66 0 65 0;
+#X connect 67 0 65 0;
+#X connect 71 0 66 0;
+#X connect 72 0 67 0;
+#X connect 73 0 65 1;
