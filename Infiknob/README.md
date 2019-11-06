@@ -19,9 +19,11 @@ notably the range of an Organelle control knob.)
 
 Messages:
 
-* Number -- a control value
-* `reset` -- reset the control
-* `set <value>` -- reset the control and set its value to as given.
+* Number -- A control value, which is handled per the above description.
+* `reset` -- Reset the control to its initial state.
+* `set <value>` -- Reset the control to its initial state, except that its value
+  is set as given.
+* **TODO** `bang` -- Send current value.
 
 ### How to use
 
