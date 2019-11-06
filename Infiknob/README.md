@@ -23,7 +23,7 @@ Messages:
 * `reset` -- Reset the control to its initial state.
 * `set <value>` -- Reset the control to its initial state, except that its value
   is set as given.
-* **TODO** `bang` -- Send current value.
+* `bang` -- Send current value.
 
 ### How to use
 
