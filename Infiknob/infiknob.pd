@@ -13,23 +13,23 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X text 997 82 Contructor arguments / initial values;
 #X obj 1136 461 expr (min\$0 + max\$0) / 2;
 #X obj 1130 548 value frozen\$0;
-#X obj 316 202 inlet;
+#X obj 316 228 inlet;
 #X obj 1043 428 receive \$0-reset;
 #X obj 1046 369 send \$0-reset;
 #X obj 207 917 expr max(min($f1 \, max\$0) \, min\$0);
 #X obj 207 976 outlet;
 #X obj 207 858 receive \$0-to-outlet;
-#X obj 165 417 trigger bang bang;
-#X obj 281 449 send \$0-reset;
+#X obj 165 443 trigger bang bang;
+#X obj 281 475 send \$0-reset;
 #X obj 207 947 change;
 #X text 459 891 Round to the quantization increment.;
 #X text 458 918 Clip to the limits.;
 #X obj 207 888 expr rint($f1 / quant\$0) * quant\$0;
 #X obj 1112 606 value midincs\$0;
-#X text 715 640 Auto-increment section;
-#X obj 557 449 send \$0-reset;
-#X obj 399 416 trigger bang float bang;
-#N canvas 487 290 1038 808 auto-increment 1;
+#X text 715 666 Auto-increment section;
+#X obj 557 475 send \$0-reset;
+#X obj 399 442 trigger bang float bang;
+#N canvas 487 290 1038 808 auto-increment 0;
 #X text 489 466 Convert to increment per 50msec (1/20 sec).;
 #X obj 380 465 expr $f1 / 20;
 #X obj 75 667 +;
@@ -101,19 +101,19 @@ inclimit\$0 = min(inclimit\$0 * 1.09 \, inclimitmax\$0);
 #X connect 30 0 22 0;
 #X connect 31 0 25 1;
 #X connect 32 0 1 0;
-#X restore 674 737 pd auto-increment;
-#X obj 674 801 send \$0-to-outlet;
-#X obj 790 775 value center\$0;
-#X obj 790 698 receive \$0-auto-amt;
+#X restore 674 763 pd auto-increment;
+#X obj 674 827 send \$0-to-outlet;
+#X obj 790 801 value center\$0;
+#X obj 790 724 receive \$0-auto-amt;
 #X text 13 8 "Infinite" range knob. See `README.md` for details.,
 f 52;
-#X obj 478 474 value center\$0;
+#X obj 478 500 value center\$0;
 #X obj 1136 488 value center\$0;
-#X text 14 28 Constructor arguments (in order): `min\$0` -- minimum
+#X text 14 31 Constructor arguments (in order): `min\$0` -- minimum
 value in the output range \; `max\$0` -- maximum value in the output
 range \; `quant\$0` -- increment quantum (smallest possible increment
 _and_ the quantized alignment), f 82;
-#X text 13 170 Constants: `midincs\$0` -- The number of increments
+#X text 13 191 Constants: `midincs\$0` -- The number of increments
 (steps) in the center range of the control input., f 82;
 #N canvas 1475 350 1006 730 control-input 0;
 #X obj 290 32 inlet;
@@ -169,11 +169,11 @@ current center value., f 38;
 #X connect 20 0 12 0;
 #X connect 21 0 19 0;
 #X connect 22 0 20 0;
-#X restore 674 493 pd control-input;
-#X obj 674 592 send \$0-to-outlet;
-#X obj 728 563 send \$0-auto-toggle;
-#X obj 674 666 receive \$0-auto-toggle;
-#X obj 783 535 send \$0-auto-amt;
+#X restore 674 519 pd control-input;
+#X obj 674 618 send \$0-to-outlet;
+#X obj 728 589 send \$0-auto-toggle;
+#X obj 674 692 receive \$0-auto-toggle;
+#X obj 783 561 send \$0-auto-amt;
 #N canvas 1172 526 763 681 freeze-handler 0;
 #X obj 28 140 inlet;
 #X obj 181 139 inlet;
@@ -213,23 +213,23 @@ state update.;
 #X connect 16 1 14 0;
 #X connect 19 0 4 0;
 #X connect 19 0 16 0;
-#X restore 674 400 pd freeze-handler;
-#X obj 710 353 value frozen\$0;
-#X obj 732 454 value frozen\$0;
-#X obj 631 310 trigger float bang bang;
-#X obj 828 353 value center\$0;
-#X obj 790 431 send \$0-to-outlet;
+#X restore 674 426 pd freeze-handler;
+#X obj 710 379 value frozen\$0;
+#X obj 732 480 value frozen\$0;
+#X obj 631 336 trigger float bang bang;
+#X obj 828 379 value center\$0;
+#X obj 790 457 send \$0-to-outlet;
 #X msg 1089 635 0;
 #X obj 1089 663 send \$0-auto-toggle;
 #X msg 1130 521 1;
 #X msg 1112 579 50;
-#X obj 367 613 expr center\$0;
-#X obj 367 645 send \$0-to-outlet;
-#X obj 316 246 route bang reset set;
+#X obj 367 639 expr center\$0;
+#X obj 367 671 send \$0-to-outlet;
+#X obj 316 272 route bang reset set;
 #X obj 45 856 receive \$0-reoutput;
 #X msg 45 889 bang;
-#X obj 47 324 send \$0-reoutput;
-#X text 13 92 Local variables: `center\$0` -- current center of the
+#X obj 47 350 send \$0-reoutput;
+#X text 13 99 Local variables: `center\$0` -- current center of the
 control range \; `frozen\$0` -- boolean indicating whether the control
 is "frozen" (starts frozen upon initialization and becomes unfrozen
 once the input control is moved to near the center of its range) \;
