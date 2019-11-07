@@ -1,4 +1,4 @@
-#N canvas 429 41 1373 1013 12;
+#N canvas 667 32 1373 1013 12;
 #X text 896 10 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
@@ -29,48 +29,55 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X text 715 640 Auto-increment section;
 #X obj 557 449 send \$0-reset;
 #X obj 399 416 trigger bang float bang;
-#N canvas 1285 203 903 516 auto-increment 0;
-#X obj 52 167 metro 50;
-#X text 495 168 Convert to increment per 50msec (1/20 sec).;
-#X obj 378 167 expr $f1 / 20;
-#X text 599 112 Increment per second \, set up as exponentially increasing
+#N canvas 1276 225 988 655 auto-increment 1;
+#X text 559 167 Convert to increment per 50msec (1/20 sec).;
+#X obj 442 166 expr $f1 / 20;
+#X text 663 111 Increment per second \, set up as exponentially increasing
 in magnitude as the control moves away from center., f 39;
-#X obj 52 373 +;
-#X obj 378 116 expr copysign(pow((max\$0 - min\$0) / 5 \, abs($f1))
+#X obj 52 464 +;
+#X obj 442 115 expr copysign(pow((max\$0 - min\$0) / 5 \, abs($f1))
 \, $f1), f 30;
-#X obj 23 55 inlet;
-#X text 10 12 Toggle auto-increment (`0` to turn it off \, `1` to turn
+#X obj 23 77 inlet;
+#X text 10 34 Toggle auto-increment (`0` to turn it off \, `1` to turn
 it on)., f 32;
-#X obj 378 76 inlet;
-#X obj 23 92 select 0;
-#X msg 23 123 stop;
-#X msg 76 123 bang;
-#X text 308 8 Amount of auto-increment. Float in range [-1..1] to indicate
+#X obj 442 75 inlet;
+#X obj 23 183 select 0;
+#X msg 23 214 stop;
+#X msg 76 214 bang;
+#X text 372 7 Amount of auto-increment. Float in range [-1..1] to indicate
 how far from center the control is and in which direction. The further
 away from center \, the faster the rate of change., f 49;
-#X obj 52 457 outlet;
-#X obj 333 458 outlet;
-#X text 37 481 Value to send to the main outlet.;
-#X text 318 483 New center value.;
-#X obj 52 210 expr max(min(center\$0 + $f2 \, max\$0) \, min\$0) \;
+#X obj 52 548 outlet;
+#X obj 333 549 outlet;
+#X text 37 572 Value to send to the main outlet.;
+#X text 318 574 New center value.;
+#X obj 52 301 expr max(min(center\$0 + $f2 \, max\$0) \, min\$0) \;
 if($f2 < 0 \, -1 \, 1) * midincs\$0 / 2 * quant\$0, f 47;
-#X text 395 200 The first expression here calculates the new center
+#X text 459 199 The first expression here calculates the new center
 value. The second one emits the offset from center based on the current
 direction of travel. This flows into an adder below \, to produce the
 final value output.;
-#X connect 0 0 17 0;
-#X connect 2 0 17 1;
-#X connect 4 0 13 0;
-#X connect 5 0 2 0;
-#X connect 6 0 9 0;
-#X connect 8 0 5 0;
-#X connect 9 0 10 0;
-#X connect 9 1 11 0;
-#X connect 10 0 0 0;
-#X connect 11 0 0 0;
-#X connect 17 0 4 0;
-#X connect 17 0 14 0;
-#X connect 17 1 4 1;
+#X obj 23 146 change;
+#X text 122 114 Ensure boolean...;
+#X text 75 146 ...and only touch the `metro` when it changes., f 31
+;
+#X obj 52 258 metro 50;
+#X obj 23 113 expr $f1 != 0;
+#X connect 1 0 16 1;
+#X connect 3 0 12 0;
+#X connect 4 0 1 0;
+#X connect 5 0 22 0;
+#X connect 7 0 4 0;
+#X connect 8 0 9 0;
+#X connect 8 1 10 0;
+#X connect 9 0 21 0;
+#X connect 10 0 21 0;
+#X connect 16 0 3 0;
+#X connect 16 0 13 0;
+#X connect 16 1 3 1;
+#X connect 18 0 8 0;
+#X connect 21 0 16 0;
+#X connect 22 0 18 0;
 #X restore 674 737 pd auto-increment;
 #X obj 674 801 send \$0-to-outlet;
 #X obj 790 775 value center\$0;
