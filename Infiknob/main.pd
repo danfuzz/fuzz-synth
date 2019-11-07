@@ -16,7 +16,7 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 57 192 expr if($f1 == 0 \, 0 \, 1);
 #X obj 129 595 osc~;
 #X obj 129 740 *~;
-#X obj 129 782 dac~;
+#X obj 129 798 dac~;
 #X obj 294 212 infiknob 0.1 20000 0.1;
 #X obj 476 212 infiknob 0 100 0.01;
 #X text 291 122 frequency;
@@ -64,7 +64,7 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 581 655 metro 100;
 #X obj 581 624 receive \$0-on-off;
 #X obj 559 687 tabwrite~ \$0-scope;
-#X obj 171 783 send~ \$0-out;
+#X obj 183 798 send~ \$0-out;
 #X text 677 344 Constant "one cent." That is \, the value which if
 taken to the 1200th power is 2, f 42;
 #X connect 4 0 15 0;
