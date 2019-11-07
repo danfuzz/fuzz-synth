@@ -30,8 +30,8 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X floatatom 297 233 8 0 0 0 - - -;
 #X obj 282 161 ctl-to-pm1;
 #X obj 282 194 infiknob -2400 2400 1;
-#X obj 670 359 loadbang;
-#X obj 670 391 expr pow(2 \, 1.0/1200);
+#X obj 663 396 loadbang;
+#X obj 663 428 expr pow(2 \, 1.0/1200);
 #X text 453 104 amplitude amount;
 #X obj 247 358 trigger bang float;
 #X obj 156 439 osc~;
@@ -51,7 +51,7 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 256 440 receive \$0-fm-amt;
 #X obj 56 358 trigger float float;
 #X obj 156 403 expr $f1 * pow(one_cent\$0 \, $f2);
-#X obj 670 423 value one_cent\$0;
+#X obj 663 460 value one_cent\$0;
 #N canvas 0 50 450 250 (subpatch) 0;
 #X array \$0-scope 256 float 0;
 #X coords 0 -1 255 1 256 128 1 0 0;
@@ -61,12 +61,14 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 480 647 receive \$0-on-off;
 #X obj 458 710 tabwrite~ \$0-scope;
 #X obj 110 757 send~ \$0-out;
-#X text 577 321 Constant "one cent." That is \, the value which if
-taken to the 1200th power is 2, f 42;
 #X obj 282 128 ctlin 21;
 #X obj 453 128 ctlin 22;
 #X obj 625 128 ctlin 23;
 #X obj 808 126 ctlin 24;
+#X text 540 333 Constant "one cent." That is \, the value which if
+taken to the 1200th power is 2 \, or put another way \, the ratio which
+if applied 1200 times to a frequency yields the frequency one octave
+higher., f 54;
 #X connect 4 0 13 0;
 #X connect 6 0 14 0;
 #X connect 7 0 8 0;
@@ -108,7 +110,7 @@ taken to the 1200th power is 2, f 42;
 #X connect 51 0 54 0;
 #X connect 52 0 54 0;
 #X connect 53 0 52 0;
-#X connect 57 0 26 0;
-#X connect 58 0 22 0;
-#X connect 59 0 4 0;
-#X connect 60 0 6 0;
+#X connect 56 0 26 0;
+#X connect 57 0 22 0;
+#X connect 58 0 4 0;
+#X connect 59 0 6 0;
