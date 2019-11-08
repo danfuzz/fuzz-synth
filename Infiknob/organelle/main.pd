@@ -1,0 +1,33 @@
+#N canvas 551 156 635 510 12;
+#X declare -path ../vanilla;
+#X text 156 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
+Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
+#X obj 9 87 declare -path ../vanilla;
+#X text 186 87 **Note:** This path gets changed to `.` when building
+the final `.zip` output. `../vanilla` is correct only for development
+on a "big computer.";
+#X text 8 59 Organelle-specific main demo driver for this patch.;
+#X obj 67 409 demo-synth~;
+#X obj 23 157 r notes;
+#X obj 67 471 throw~ outL;
+#X obj 86 443 throw~ outR;
+#X obj 84 157 receive knob1;
+#X obj 187 157 receive knob2;
+#X obj 290 157 receive knob3;
+#X obj 393 157 receive knob4;
+#X obj 84 190 01-to-pm1;
+#X obj 187 190 01-to-pm1;
+#X obj 290 190 01-to-pm1;
+#X obj 393 190 01-to-pm1;
+#X connect 4 0 7 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;
+#X connect 8 0 12 0;
+#X connect 9 0 13 0;
+#X connect 10 0 14 0;
+#X connect 11 0 15 0;
+#X connect 12 0 4 1;
+#X connect 13 0 4 2;
+#X connect 14 0 4 3;
+#X connect 15 0 4 4;
