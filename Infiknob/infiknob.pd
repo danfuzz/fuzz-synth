@@ -28,7 +28,7 @@ Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X text 715 666 Auto-increment section;
 #X obj 557 475 send \$0-reset;
 #X obj 399 442 trigger bang float bang;
-#N canvas 170 375 922 726 auto-increment 1;
+#N canvas 188 596 922 726 auto-increment 1;
 #X obj 61 564 +;
 #X obj 10 69 inlet;
 #X text 8 34 Toggle auto-increment (`0` to turn it off \, `1` to turn
@@ -58,8 +58,6 @@ final value output.;
 if($f2 < 0 \, -1 \, 1) * midincs\$0 / 2 * quant\$0;
 #X obj 531 538 expr ((max\$0 - min\$0) / quant\$0) / 4;
 #X obj 531 570 value auto_max\$0;
-#X obj 398 109 expr copysign(quant\$0 * pow(auto_max\$0 \, abs($f1)
-+ 0.1) \, $f1), f 63;
 #X obj 133 251 send \$0-auto-reset;
 #X obj 531 502 receive \$0-auto-reset;
 #X text 528 594 Set the maximum rate of auto-increment (that is \,
@@ -73,14 +71,16 @@ in magnitude as the control moves away from center., f 57;
 it in the `float` below for use during each bang of the `metro`.;
 #X text 62 138 ...and only touch the `metro` when it changes \, to
 avoid spurious extra `bang`s., f 41;
+#X obj 398 109 expr copysign(quant\$0 * pow(auto_max\$0 \, abs($f1))
+\, $f1), f 63;
 #X connect 0 0 8 0;
 #X connect 1 0 15 0;
-#X connect 3 0 22 0;
+#X connect 3 0 29 0;
 #X connect 4 0 5 0;
 #X connect 4 1 6 0;
 #X connect 5 0 14 0;
 #X connect 6 0 14 0;
-#X connect 6 0 23 0;
+#X connect 6 0 22 0;
 #X connect 12 0 4 0;
 #X connect 14 0 17 0;
 #X connect 15 0 12 0;
@@ -91,9 +91,9 @@ avoid spurious extra `bang`s., f 41;
 #X connect 19 0 9 0;
 #X connect 19 1 0 1;
 #X connect 20 0 21 0;
-#X connect 22 0 26 0;
-#X connect 24 0 20 0;
-#X connect 26 0 16 1;
+#X connect 23 0 20 0;
+#X connect 25 0 16 1;
+#X connect 29 0 25 0;
 #X restore 674 763 pd auto-increment;
 #X obj 674 827 send \$0-to-outlet;
 #X obj 790 801 value center\$0;
