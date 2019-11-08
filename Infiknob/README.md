@@ -8,10 +8,9 @@ treats it as a control over a (generally speaking) wider range of values. The
 middle half of the input range selects individual values around the current
 value, and the extremes of the input range cause the value to auto-increment
 towards the respective ends of the output range, at a rate that increases as
-the control veers further from the center, which is furthermore limited to a
-slow pace which increases the longer the control stays in the auto-increment
-range. Constructor arguments are `min` (minimum value in range), `max` (maximum
-value in range), and `quant` (smallest quantum of change / quantization amount).
+the control veers further from the center. Constructor arguments are `min`
+(minimum value in range), `max` (maximum value in range), and `quant` (smallest
+quantum of change / quantization amount).
 
 **Note:** The included object `ctl-to-pm1` converts a standard MIDI control
 value in the range [0..127] into a value in the range [-1..1] as expected by
