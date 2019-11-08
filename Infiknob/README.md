@@ -29,7 +29,12 @@ Messages:
 
 Copy the desired file(s) and make sure they are on your patch search path.
 
-The file `main.pd` in this distribution demonstrates the object.
+The two `main.pd` files in this distribution demonstrate the object, under
+`vanilla` for a vanilla Pd demo, and under `organelle` for an Organelle demo.
+
+### How to build
+
+The script `scripts/build-organelle` builds an install file for the Organelle.
 
 - - - - -
 
