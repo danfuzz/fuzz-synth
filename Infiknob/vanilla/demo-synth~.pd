@@ -62,7 +62,7 @@ higher., f 54;
 #X text 508 575 Outlet to relay the knob values \, for UI presentation
 outside this object.;
 #X obj 652 744 outlet;
-#X obj 284 158 infiknob -9600 9600 1;
+#X obj 284 158 infiknob -4800 4800 1;
 #X connect 1 0 18 0;
 #X connect 2 0 20 0;
 #X connect 3 0 9 0;
