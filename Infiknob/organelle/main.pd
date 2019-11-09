@@ -59,7 +59,7 @@ an extra space \, which is what would happen if we just did `list append
 #X obj 19 15 inlet;
 #X obj 19 331 outlet;
 #X obj 65 144 list fromsymbol;
-#X obj 65 270 list tosymbol;
+#X obj 105 270 list tosymbol;
 #X obj 19 66 moses 0;
 #X text 88 13 This turns a positive number into a string (well \, a
 symbol) \, with `+` prepended.;
@@ -67,8 +67,8 @@ symbol) \, with `+` prepended.;
 in turn to a list \, so that we can do the prepending (without forcing
 an extra space \, which is what would happen if we just did `list prepend
 +`). **Note:** The `=` could be any non-number-valid character.;
-#X text 199 236 That's ASCII for `+`.;
-#X obj 65 236 list prepend 43;
+#X text 218 236 That's ASCII for `+`.;
+#X obj 105 236 list prepend 43;
 #X msg 65 111 symbol =\$1;
 #X obj 65 201 list split 1;
 #X text 198 201 Remove the `=` we prepended at the start of this travesty.
@@ -80,7 +80,7 @@ an extra space \, which is what would happen if we just did `list prepend
 #X connect 4 1 9 0;
 #X connect 8 0 3 0;
 #X connect 9 0 2 0;
-#X connect 10 0 8 0;
+#X connect 10 1 8 0;
 #X restore 497 518 pd show-positive-sign;
 #X obj 279 328 loadbang;
 #X obj 279 359 delay 100;
