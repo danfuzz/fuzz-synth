@@ -1,4 +1,4 @@
-#N canvas 551 156 790 661 12;
+#N canvas 551 156 905 627 12;
 #X declare -path ../vanilla;
 #X text 156 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
@@ -20,15 +20,15 @@ on a "big computer.";
 #X obj 187 190 01-to-pm1;
 #X obj 290 190 01-to-pm1;
 #X obj 393 190 01-to-pm1;
-#X obj 397 244 receive \$0-knob-value;
-#X obj 397 283 route fm-cents fm-amp ring-freq ring-amt;
+#X obj 497 230 receive \$0-knob-value;
+#X obj 497 269 route fm-cents fm-amp ring-freq ring-amt;
 #X obj 141 443 send \$0-knob-value;
-#X obj 466 504 send screenLine2;
-#X obj 604 363 send screenLine4;
-#X obj 535 445 send screenLine3;
-#X obj 535 420 list append Hz;
-#X obj 397 606 send screenLine1;
-#X obj 397 582 list append cents;
+#X obj 566 490 send screenLine2;
+#X obj 704 349 send screenLine4;
+#X obj 635 431 send screenLine3;
+#X obj 635 406 list append Hz;
+#X obj 497 592 send screenLine1;
+#X obj 497 568 list append cents;
 #N canvas 584 275 629 380 append-% 1;
 #X obj 19 15 inlet;
 #X obj 19 333 outlet;
@@ -57,11 +57,11 @@ an extra space \, which is what would happen if we just did `list append
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 1 0;
-#X restore 604 312 pd append-%;
-#X obj 604 337 list prepend 4: AM amt:;
-#X obj 535 395 list prepend 3: AM fq:;
-#X obj 466 480 list prepend 2: FM amp:;
-#X obj 397 558 list prepend 1: FM fq:;
+#X restore 704 298 pd append-%;
+#X obj 704 323 list prepend 4: AM amt:;
+#X obj 635 381 list prepend 3: AM fq:;
+#X obj 566 466 list prepend 2: FM amp:;
+#X obj 497 544 list prepend 1: FM fq:;
 #N canvas 0 23 657 467 show-positive-sign 0;
 #X obj 19 15 inlet;
 #X obj 19 413 outlet;
@@ -95,7 +95,11 @@ an extra space \, which is what would happen if we just did `list prepend
 #X connect 10 0 1 0;
 #X connect 10 1 2 0;
 #X connect 14 0 8 0;
-#X restore 397 532 pd show-positive-sign;
+#X restore 497 518 pd show-positive-sign;
+#X obj 279 328 loadbang;
+#X obj 279 359 delay 100;
+#X text 261 386 Force display update just after loading the patch.
+, f 25;
 #X connect 4 0 7 0;
 #X connect 4 0 6 0;
 #X connect 4 1 18 0;
@@ -121,3 +125,8 @@ an extra space \, which is what would happen if we just did `list prepend
 #X connect 28 0 19 0;
 #X connect 29 0 24 0;
 #X connect 30 0 29 0;
+#X connect 31 0 32 0;
+#X connect 32 0 4 1;
+#X connect 32 0 4 2;
+#X connect 32 0 4 3;
+#X connect 32 0 4 4;
