@@ -219,12 +219,6 @@ state update.;
 #X obj 45 856 receive \$0-reoutput;
 #X msg 45 889 bang;
 #X obj 47 369 send \$0-reoutput;
-#X text 13 109 Local variables: `center\$0` -- current center of the
-control range \; `frozen\$0` -- boolean indicating whether the control
-is "frozen" (starts frozen upon initialization and becomes unfrozen
-once the input control is moved to near the center of its range) \;
-`inclimit\$0` and `inclimitmax\$0` (used in the auto-increment sub-object)
--- limits on the rate of change of the output., f 82;
 #X obj 924 250 expr center\$0;
 #X obj 924 282 send \$0-to-outlet;
 #X text 14 31 Constructor arguments (in order): `min\$0` -- minimum
@@ -247,15 +241,21 @@ be defaulted., f 24;
 #X obj 399 461 trigger bang bang float;
 #X obj 557 494 value init\$0;
 #X obj 478 519 send \$0-reset;
+#X text 13 109 Local variables: `center\$0` -- current center of the
+control range \; `frozen\$0` -- boolean indicating whether the control
+is "frozen" (starts frozen upon initialization and becomes unfrozen
+once the input control is moved to near the center of its range) \;
+`auto_max\$0` (used in the auto-increment sub-object) -- maximum rate
+of value change per second when auto-incrementing., f 82;
 #X connect 1 0 6 0;
 #X connect 2 0 5 0;
 #X connect 3 0 4 0;
-#X connect 7 0 61 0;
+#X connect 7 0 60 0;
 #X connect 10 0 48 0;
 #X connect 11 0 42 0;
 #X connect 11 0 44 0;
 #X connect 11 0 45 0;
-#X connect 11 0 66 0;
+#X connect 11 0 65 0;
 #X connect 13 0 18 0;
 #X connect 15 0 21 0;
 #X connect 16 0 46 0;
@@ -283,26 +283,26 @@ be defaulted., f 24;
 #X connect 46 0 47 0;
 #X connect 48 0 51 0;
 #X connect 48 1 16 0;
-#X connect 48 2 67 0;
+#X connect 48 2 66 0;
 #X connect 48 3 39 0;
 #X connect 49 0 50 0;
 #X connect 50 0 18 0;
-#X connect 53 0 54 0;
+#X connect 52 0 53 0;
+#X connect 55 0 56 0;
 #X connect 56 0 57 0;
 #X connect 57 0 58 0;
 #X connect 58 0 59 0;
-#X connect 59 0 60 0;
-#X connect 60 0 64 0;
-#X connect 60 1 62 0;
-#X connect 61 0 53 0;
-#X connect 61 1 12 0;
-#X connect 61 2 56 0;
-#X connect 61 3 1 0;
-#X connect 61 3 2 0;
-#X connect 61 3 3 0;
-#X connect 62 0 63 0;
-#X connect 64 0 63 0;
-#X connect 66 0 29 0;
-#X connect 67 0 46 0;
-#X connect 67 1 69 0;
-#X connect 67 2 68 0;
+#X connect 59 0 63 0;
+#X connect 59 1 61 0;
+#X connect 60 0 52 0;
+#X connect 60 1 12 0;
+#X connect 60 2 55 0;
+#X connect 60 3 1 0;
+#X connect 60 3 2 0;
+#X connect 60 3 3 0;
+#X connect 61 0 62 0;
+#X connect 63 0 62 0;
+#X connect 65 0 29 0;
+#X connect 66 0 46 0;
+#X connect 66 1 68 0;
+#X connect 66 2 67 0;
