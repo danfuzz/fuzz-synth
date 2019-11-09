@@ -1,4 +1,4 @@
-#N canvas 551 156 642 563 12;
+#N canvas 551 156 790 661 12;
 #X declare -path ../vanilla;
 #X text 156 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
@@ -20,20 +20,85 @@ on a "big computer.";
 #X obj 187 190 01-to-pm1;
 #X obj 290 190 01-to-pm1;
 #X obj 393 190 01-to-pm1;
-#X obj 327 419 receive \$0-knob-value;
-#X obj 327 458 route fm-cents fm-amp ring-freq ring-amt;
-#X floatatom 396 497 8 0 0 0 - - -;
-#X floatatom 534 497 8 0 0 0 - - -;
-#X floatatom 327 497 8 0 0 0 - - -;
-#X floatatom 465 497 8 0 0 0 - - -;
-#X text 324 517 FM cents;
-#X text 400 517 FM amp;
-#X text 469 517 AM Hz;
-#X text 533 517 AM %;
+#X obj 397 244 receive \$0-knob-value;
+#X obj 397 283 route fm-cents fm-amp ring-freq ring-amt;
 #X obj 141 443 send \$0-knob-value;
+#X obj 466 504 send screenLine2;
+#X obj 604 363 send screenLine4;
+#X obj 535 445 send screenLine3;
+#X obj 535 420 list append Hz;
+#X obj 397 606 send screenLine1;
+#X obj 397 582 list append cents;
+#N canvas 584 275 629 380 append-% 1;
+#X obj 19 15 inlet;
+#X obj 19 333 outlet;
+#X msg 19 51 symbol \$1=;
+#X obj 19 84 list fromsymbol;
+#X obj 19 119 trigger list list;
+#X obj 135 156 list length;
+#X obj 135 186 - 1;
+#X text 188 13 This icky hack converts a float to a symbol \, and in
+turn to a list \, so that we can append a `%` to it (without forcing
+an extra space \, which is what would happen if we just did `list append
+%`). **Note:** The `=` could be any non-number-valid character.;
+#X obj 19 223 list split;
+#X obj 19 258 list append 37;
+#X text 132 258 That's ASCII for `%`.;
+#X obj 19 292 list tosymbol;
+#X text 131 223 Remove the `=` we appended at the start of this travesty.
+;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 8 0;
+#X connect 4 1 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 8 1;
+#X connect 8 0 9 0;
+#X connect 9 0 11 0;
+#X connect 11 0 1 0;
+#X restore 604 312 pd append-%;
+#X obj 604 337 list prepend 4: AM amt:;
+#X obj 535 395 list prepend 3: AM fq:;
+#X obj 466 480 list prepend 2: FM amp:;
+#X obj 397 558 list prepend 1: FM fq:;
+#N canvas 0 23 657 467 show-positive-sign 0;
+#X obj 19 15 inlet;
+#X obj 19 413 outlet;
+#X msg 65 111 symbol \$1=;
+#X obj 65 144 list fromsymbol;
+#X obj 65 179 trigger list list;
+#X obj 181 216 list length;
+#X obj 181 246 - 1;
+#X obj 65 283 list split;
+#X obj 65 352 list tosymbol;
+#X text 177 283 Remove the `=` we appended at the start of this travesty.
+;
+#X obj 19 66 moses 0;
+#X text 88 13 This turns a positive number into a string (well \, a
+symbol) \, with `+` prepended.;
+#X text 198 120 This icky hack converts a float to a symbol \, and
+in turn to a list \, so that we can do the prepending (without forcing
+an extra space \, which is what would happen if we just did `list prepend
++`). **Note:** The `=` could be any non-number-valid character.;
+#X text 178 318 That's ASCII for `+`.;
+#X obj 65 318 list prepend 43;
+#X connect 0 0 10 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 7 0;
+#X connect 4 1 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 1;
+#X connect 7 0 14 0;
+#X connect 8 0 1 0;
+#X connect 10 0 1 0;
+#X connect 10 1 2 0;
+#X connect 14 0 8 0;
+#X restore 397 532 pd show-positive-sign;
 #X connect 4 0 7 0;
 #X connect 4 0 6 0;
-#X connect 4 1 26 0;
+#X connect 4 1 18 0;
 #X connect 5 0 4 0;
 #X connect 8 0 12 0;
 #X connect 9 0 13 0;
@@ -44,7 +109,15 @@ on a "big computer.";
 #X connect 14 0 4 3;
 #X connect 15 0 4 4;
 #X connect 16 0 17 0;
-#X connect 17 0 20 0;
-#X connect 17 1 18 0;
-#X connect 17 2 21 0;
-#X connect 17 3 19 0;
+#X connect 17 0 30 0;
+#X connect 17 1 28 0;
+#X connect 17 2 27 0;
+#X connect 17 3 25 0;
+#X connect 22 0 21 0;
+#X connect 24 0 23 0;
+#X connect 25 0 26 0;
+#X connect 26 0 20 0;
+#X connect 27 0 22 0;
+#X connect 28 0 19 0;
+#X connect 29 0 24 0;
+#X connect 30 0 29 0;
