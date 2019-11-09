@@ -1,4 +1,4 @@
-#N canvas 47 360 1123 788 12;
+#N canvas 354 178 1123 788 12;
 #X text 501 14 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
@@ -59,10 +59,10 @@ higher., f 54;
 #X text 508 575 Outlet to relay the knob values \, for UI presentation
 outside this object.;
 #X obj 652 744 outlet;
-#X obj 284 158 infiknob -4800 4800 1 0;
 #X obj 455 158 infiknob 0 16 0.01 0;
 #X obj 614 158 infiknob 0.1 20000 0.1 2;
 #X obj 792 158 infiknob 0 100 0.01 0;
+#X obj 284 158 infiknob -4800 4800 0;
 #X connect 1 0 16 0;
 #X connect 2 0 18 0;
 #X connect 3 0 7 0;
@@ -86,10 +86,10 @@ outside this object.;
 #X connect 27 0 14 0;
 #X connect 32 0 15 2;
 #X connect 34 0 42 0;
-#X connect 36 0 54 0;
-#X connect 37 0 55 0;
-#X connect 38 0 56 0;
-#X connect 39 0 57 0;
+#X connect 36 0 57 0;
+#X connect 37 0 54 0;
+#X connect 38 0 55 0;
+#X connect 39 0 56 0;
 #X connect 42 0 1 0;
 #X connect 42 1 2 0;
 #X connect 44 0 53 0;
@@ -100,7 +100,7 @@ outside this object.;
 #X connect 49 0 45 0;
 #X connect 50 0 46 0;
 #X connect 51 0 47 0;
-#X connect 54 0 24 0;
-#X connect 55 0 31 0;
-#X connect 56 0 20 0;
-#X connect 57 0 21 0;
+#X connect 54 0 31 0;
+#X connect 55 0 20 0;
+#X connect 56 0 21 0;
+#X connect 57 0 24 0;
