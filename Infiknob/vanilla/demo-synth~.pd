@@ -3,8 +3,8 @@
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 22 729 outlet~;
-#X obj 28 87 inlet;
-#X text 13 65 Pairs of `(note \, velocity)`.;
+#X obj 28 107 inlet;
+#X text 13 85 Pairs of `(note \, velocity)`.;
 #X obj 263 107 inlet;
 #X text 13 12 Demo synthesizer.;
 #X text 376 748 Outlet to relay the knob values \, for UI presentation
@@ -15,7 +15,7 @@ outside this object., f 38;
 #X obj 512 188 infiknob 0 100 0.01 0;
 #X obj 325 464 infiknob -4800 4800 1 0;
 #X obj 22 565 receive \$0-notes;
-#X obj 28 121 send \$0-notes;
+#X obj 28 141 send \$0-notes;
 #X obj 22 618 pack 0 0 0;
 #X obj 22 656 clone -s 1 demo-voice~ 8;
 #X obj 22 592 poly 8 1, f 10;
