@@ -1,0 +1,36 @@
+#N canvas 862 57 624 552 12;
+#X text 146 3 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
+Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
+#X obj 31 182 inlet~;
+#X obj 31 491 outlet~;
+#X obj 175 291 env~;
+#X obj 175 378 float 1;
+#X msg 175 349 bang;
+#X text 241 431 Smooth out amp adjustment with a 0.5Hz low-pass filter.
+, f 30;
+#X obj 175 430 lop~ 0.5;
+#X obj 175 320 moses 92, f 10;
+#X obj 242 378 expr 1 - (($f1 - 92) / 20);
+#X obj 104 349 loadbang;
+#X obj 31 461 expr~ tanh($v1 * $v2);
+#X text 6 52 "Polite" audio clipper: Applies `tanh` to the input (a
+sigmoid-ish curve that entirely prevents clipping with the "cost" of
+deforming the transfer curve and thereby introducing harmonics \, especially
+at higher amplitudes) \, while also gently adjusting overall amplitude
+to try to keep the incoming signal out of the more aggressively-bent
+part of the curve. The goal is for modest-amplitude input to come out
+_nearly_ undetectably altered \, while also never producing unpleasantly-clipped
+output given input which is merely modestly-to-moderately out of the
+usual audio range of [-1..1]., f 85;
+#X connect 1 0 3 0;
+#X connect 1 0 11 0;
+#X connect 3 0 8 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 7 0 11 1;
+#X connect 8 0 5 0;
+#X connect 8 1 9 0;
+#X connect 9 0 7 0;
+#X connect 10 0 4 0;
+#X connect 11 0 2 0;
