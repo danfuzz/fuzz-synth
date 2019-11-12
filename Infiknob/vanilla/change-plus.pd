@@ -1,0 +1,74 @@
+#N canvas 489 291 772 787 12;
+#X text 294 7 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
+Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
+#X text 6 58 Exactly like `change` \, except that the default initial
+value is "none" (not `0`) and it responds to a `set-none` message by
+resetting the value to "none." A "none" value is never output and is
+considered not-equal to any actual input.;
+#X obj 467 165 list fromsymbol;
+#X obj 467 192 list length;
+#X obj 467 219 select 0, f 16;
+#X msg 576 248 bang;
+#X obj 467 138 symbol \$1;
+#X text 580 136 Awful hack to determine if `\$1` was passed or should
+be defaulted., f 24;
+#X obj 576 275 float \$1;
+#X obj 24 129 inlet;
+#X obj 368 389 value in\$0;
+#X obj 24 164 route bang set set-none, f 27;
+#X obj 24 743 outlet;
+#X obj 24 708 expr value\$0;
+#X obj 271 610 select 1;
+#X obj 84 225 send \$0-set-none;
+#X obj 467 405 receive \$0-set-none;
+#X msg 467 432 bang;
+#X obj 495 486 value none\$0;
+#X obj 467 331 send \$0-set-none;
+#X obj 612 405 receive \$0-set-value;
+#X msg 651 438 bang;
+#X obj 612 518 value value\$0;
+#X obj 651 492 value none\$0;
+#X obj 576 302 send \$0-set-value;
+#X obj 44 256 send \$0-set-value;
+#X obj 467 511 float 0;
+#X obj 467 540 value value\$0;
+#X obj 210 354 trigger bang bang float;
+#X obj 289 421 expr none\$0 || (in\$0 != value\$0), f 17;
+#X msg 128 505 bang;
+#X obj 128 464 expr value\$0 = in\$0 \; none\$0 = 0;
+#X obj 271 583 int;
+#X obj 495 459 int 1;
+#X obj 651 465 int 0;
+#X obj 467 111 loadbang;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 19 0;
+#X connect 4 1 5 0;
+#X connect 5 0 8 0;
+#X connect 6 0 2 0;
+#X connect 8 0 24 0;
+#X connect 9 0 11 0;
+#X connect 11 0 13 0;
+#X connect 11 1 25 0;
+#X connect 11 2 15 0;
+#X connect 11 3 28 0;
+#X connect 13 0 12 0;
+#X connect 14 0 13 0;
+#X connect 16 0 17 0;
+#X connect 17 0 26 0;
+#X connect 17 0 33 0;
+#X connect 20 0 22 0;
+#X connect 20 0 21 0;
+#X connect 21 0 34 0;
+#X connect 26 0 27 0;
+#X connect 28 0 31 0;
+#X connect 28 1 29 0;
+#X connect 28 2 10 0;
+#X connect 29 0 32 1;
+#X connect 30 0 32 0;
+#X connect 31 0 30 0;
+#X connect 32 0 14 0;
+#X connect 33 0 18 0;
+#X connect 34 0 23 0;
+#X connect 35 0 6 0;
