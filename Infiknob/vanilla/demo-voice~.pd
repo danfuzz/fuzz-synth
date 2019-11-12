@@ -1,79 +1,92 @@
-#N canvas 507 214 973 798 12;
-#X text 501 14 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
+#N canvas 1198 132 841 1012 12;
+#X text 362 13 Copyright 2019 Dan Bornstein <danfuzz@milk.com>. Licensed
 AS IS and WITHOUT WARRANTY under the Apache License \, Version 2.0.
 Details: <http://www.apache.org/licenses/LICENSE-2.0>, f 65;
 #X obj 23 156 mtof;
 #X obj 90 157 expr if($f1 == 0 \, 0 \, 1);
-#X obj 23 564 osc~;
-#X obj 23 706 *~;
+#X obj 27 942 *~;
 #X text 417 196 frequency;
-#X obj 75 564 osc~;
-#X obj 23 659 *~;
-#X obj 75 598 expr~ 1 - (($v1 + 1) / 2 * ($v2 * 0.01)), f 20;
+#X obj 45 820 osc~;
+#X obj 27 895 *~;
+#X obj 45 847 expr~ 1 - (($v1 + 1) / 2 * ($v2 * 0.01)), f 20;
 #X text 280 286 frequency cents;
-#X obj 635 458 loadbang;
-#X obj 635 490 expr pow(2 \, 1.0/1200);
-#X obj 214 368 trigger bang float;
-#X obj 123 449 osc~;
-#X obj 23 482 expr~ $v1 * (1 + ($v2 * $v3));
+#X obj 423 395 loadbang;
+#X obj 423 427 expr pow(2 \, 1.0/1200);
 #X obj 23 226 send \$0-main-freq;
-#X obj 23 339 receive \$0-main-freq;
 #X obj 90 188 send \$0-on-off;
-#X obj 68 670 receive \$0-on-off;
+#X obj 72 906 receive \$0-on-off;
 #X obj 418 177 send \$0-ring-freq;
 #X obj 487 138 send \$0-ring-amt;
-#X obj 75 523 receive \$0-ring-freq;
-#X obj 212 560 receive \$0-ring-amt;
+#X obj 45 790 receive \$0-ring-freq;
+#X obj 182 819 receive \$0-ring-amt;
 #X obj 280 266 send \$0-fm-cents;
-#X obj 214 339 receive \$0-fm-cents;
-#X obj 23 368 trigger float float;
-#X obj 123 413 expr $f1 * pow(one_cent\$0 \, $f2);
-#X obj 635 522 value one_cent\$0;
-#X text 512 395 Constant "one cent." That is \, the value which if
+#X obj 423 459 value one_cent\$0;
+#X text 420 324 Constant "one cent." That is \, the value which if
 taken to the 1200th power is 2 \, or put another way \, the ratio which
 if applied 1200 times to a frequency yields the frequency one octave
 higher., f 54;
 #X text 348 243 amplitude;
 #X obj 349 225 send \$0-fm-amp;
-#X obj 223 450 receive \$0-fm-amp;
-#X obj 23 754 outlet~;
+#X obj 27 977 outlet~;
 #X obj 23 81 inlet;
 #X text 8 59 Pairs of `(note \, velocity)`.;
 #X obj 280 80 inlet;
-#X text 460 258 Frequency modulator controls;
-#X text 644 159 Amplitude LFO / ring modulator controls;
 #X obj 23 126 unpack 0 0;
 #X text 13 11 Demo voice.;
 #X obj 280 112 route fm-cents fm-amp ring-freq ring-amt;
 #X text 273 57 Controls;
 #X text 486 157 amplitude amount %;
-#X connect 1 0 15 0;
-#X connect 2 0 17 0;
-#X connect 3 0 7 0;
-#X connect 4 0 32 0;
-#X connect 6 0 8 0;
-#X connect 7 0 4 0;
-#X connect 8 0 7 1;
-#X connect 10 0 11 0;
-#X connect 11 0 27 0;
-#X connect 12 0 26 0;
-#X connect 12 1 26 1;
-#X connect 13 0 14 1;
-#X connect 14 0 3 0;
-#X connect 16 0 25 0;
-#X connect 18 0 4 1;
-#X connect 21 0 6 0;
-#X connect 22 0 8 1;
-#X connect 24 0 12 0;
-#X connect 25 0 14 0;
-#X connect 25 1 26 0;
-#X connect 26 0 13 0;
-#X connect 31 0 14 2;
-#X connect 33 0 38 0;
-#X connect 35 0 40 0;
-#X connect 38 0 1 0;
-#X connect 38 1 2 0;
-#X connect 40 0 23 0;
-#X connect 40 1 30 0;
-#X connect 40 2 19 0;
-#X connect 40 3 20 0;
+#X obj 27 633 phasor~;
+#X obj 27 460 receive \$0-main-freq;
+#X obj 421 529 loadbang;
+#X obj 421 558 expr asin(1) * 4;
+#X obj 421 586 value two_pi\$0;
+#X text 249 659 Classic FM algorithm: y = A * sin(alpha*t + I * sin(beta*t))
+\; where A == overall amplitude \, I == modulation index (modulator
+amplitude) \, alpha == carrier frequency in rad/sec \, beta == modulator
+frequency in rad/sec. (A is always 1 in this version.), f 63;
+#X text 250 736 See "The Synthesis of Complex Audio Spectra by Means
+of Frequency Modulation" by John M. Chowning \, 1973 \, page 1, f
+63;
+#X obj 27 661 expr~ cos(($v1 * two_pi\$0) + $v3 * cos($v2 * two_pi\$0))
+, f 30;
+#X obj 130 612 phasor~;
+#X obj 130 504 receive \$0-fm-cents;
+#X obj 130 535 trigger bang float, f 21;
+#X obj 234 631 receive \$0-fm-amp;
+#X obj 130 569 expr $f1 * pow(one_cent\$0 \, $f2), f 21;
+#X text 419 493 Constant 2*pi \, used to convert [0..1] range to the
+usual radian range for trigonometric functions., f 54;
+#X text 456 253 Frequency modulation controls, f 22;
+#X text 636 156 Amplitude LFO / ring modulation controls, f 25;
+#X connect 1 0 11 0;
+#X connect 2 0 12 0;
+#X connect 3 0 23 0;
+#X connect 5 0 7 0;
+#X connect 6 0 3 0;
+#X connect 7 0 6 1;
+#X connect 9 0 10 0;
+#X connect 10 0 19 0;
+#X connect 13 0 3 1;
+#X connect 16 0 5 0;
+#X connect 17 0 7 1;
+#X connect 24 0 27 0;
+#X connect 26 0 29 0;
+#X connect 27 0 1 0;
+#X connect 27 1 2 0;
+#X connect 29 0 18 0;
+#X connect 29 1 22 0;
+#X connect 29 2 14 0;
+#X connect 29 3 15 0;
+#X connect 32 0 39 0;
+#X connect 33 0 32 0;
+#X connect 33 0 44 0;
+#X connect 34 0 35 0;
+#X connect 35 0 36 0;
+#X connect 39 0 6 0;
+#X connect 40 0 39 1;
+#X connect 41 0 42 0;
+#X connect 42 0 44 0;
+#X connect 42 1 44 1;
+#X connect 43 0 39 2;
+#X connect 44 0 40 0;
