@@ -41,11 +41,7 @@ higher., f 54;
 #X obj 421 529 loadbang;
 #X obj 421 558 expr asin(1) * 4;
 #X obj 421 586 value two_pi\$0;
-#X text 249 659 Classic FM algorithm: y = A * sin(alpha*t + I * sin(beta*t))
-\; where A == overall amplitude \, I == modulation index (modulator
-amplitude) \, alpha == carrier frequency in rad/sec \, beta == modulator
-frequency in rad/sec. (A is always 1 in this version.), f 63;
-#X text 250 736 See "The Synthesis of Complex Audio Spectra by Means
+#X text 249 763 See "The Synthesis of Complex Audio Spectra by Means
 of Frequency Modulation" by John M. Chowning \, 1973 \, page 1, f
 63;
 #X obj 27 661 expr~ cos(($v1 * two_pi\$0) + $v3 * cos($v2 * two_pi\$0))
@@ -59,6 +55,12 @@ of Frequency Modulation" by John M. Chowning \, 1973 \, page 1, f
 usual radian range for trigonometric functions., f 54;
 #X text 456 253 Frequency modulation controls, f 22;
 #X text 636 156 Amplitude LFO / ring modulation controls, f 25;
+#X text 249 704 A == overall amplitude \, I == modulation index (modulator
+amplitude) \, alpha == carrier frequency in rad/sec \, beta == modulator
+frequency in rad/sec. (A is always 1 in this version.), f 63;
+#X text 249 659 Classic FM algorithm (which is \, technically speaking
+\, actually a _phase_ modulation algorithm): y = A * sin(alpha*t +
+I * sin(beta*t)), f 63;
 #X connect 1 0 11 0;
 #X connect 2 0 12 0;
 #X connect 3 0 23 0;
@@ -78,15 +80,15 @@ usual radian range for trigonometric functions., f 54;
 #X connect 29 1 22 0;
 #X connect 29 2 14 0;
 #X connect 29 3 15 0;
-#X connect 32 0 39 0;
+#X connect 32 0 38 0;
 #X connect 33 0 32 0;
-#X connect 33 0 44 0;
+#X connect 33 0 43 0;
 #X connect 34 0 35 0;
 #X connect 35 0 36 0;
-#X connect 39 0 6 0;
-#X connect 40 0 39 1;
-#X connect 41 0 42 0;
-#X connect 42 0 44 0;
-#X connect 42 1 44 1;
-#X connect 43 0 39 2;
-#X connect 44 0 40 0;
+#X connect 38 0 6 0;
+#X connect 39 0 38 1;
+#X connect 40 0 41 0;
+#X connect 41 0 43 0;
+#X connect 41 1 43 1;
+#X connect 42 0 38 2;
+#X connect 43 0 39 0;
