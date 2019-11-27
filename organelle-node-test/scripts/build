@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Set `progName` to the program name, `progDir` to its directory, and `baseDir`
+# to `progDir`'s directory. Follows symlinks.
+function init-prog {
+   local newp p="$0"
+
+   while newp="$(readlink "$p")"; do
+       [[ ${newp} =~ ^/ ]] && p="${newp}" || p="$(dirname "$p")/${newp}"
+   done
+
+   progName="${p##*/}"
+   progDir="$(cd "$(dirname "$p")"; /bin/pwd -P)"
+   baseDir="$(cd "${progDir}/.."; /bin/pwd -P)"
+}
+init-prog
+
+#
+# Main script
+#
+
+cd "${baseDir}"
+
+# `--no-optional` makes it avoid installing `serialport`.
+npm install --no-optional || exit 1
+
+# Until <https://github.com/colinbdclark/osc.js/pull/159> is published, there is
+# a bug where `serialport` is required even though declared optional. This
+# manually patches the bug. TODO: Re-evaluate the necessity of this on an
+# occasional basis.
+(
+   cd node_modules/osc/src/platforms
+   sed -e 's/node-serialport\.js/node-serialport-loader.js/g' osc-node.js \
+      > osc-node-fixed.js \
+      && mv osc-node-fixed.js osc-node.js
+) || exit 1

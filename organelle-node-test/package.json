@@ -1,0 +1,13 @@
+{
+  "name": "organelle-node-test",
+  "description": "n/a",
+  "repository": "n/a",
+  "license": "Apache-2.0",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./src/main.js",
+  "dependencies": {
+    "delay": "4.3.0",
+    "osc": "^2.3.1"
+  }
+}
