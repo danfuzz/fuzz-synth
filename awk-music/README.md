@@ -4,6 +4,9 @@ awk-music
 This is a port of Kyle Keen's generative piece "AWK Music" to the Organelle.
 Find the original at <http://kmkeen.com/awk-music/>.
 
+**Note:** This is not a translation of the piece to PureData. It uses the
+original AWK code, running it with `awk` per se on the Organelle.
+
 ### How to build
 
 The script `scripts/build-organelle` builds an install file for the Organelle.
