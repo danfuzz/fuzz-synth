@@ -20,7 +20,7 @@ const SAMPLE_FORMAT = Endianness.isLittleEndian() ? 'FLOAT64_LE' : 'FLOAT64_BE';
 /**
  * {array<string>} Command to issue (executable to run, and arguments) to start
  * playing audio, when ALSA is available. The command needs to take as `stdin`
- * bytes representing two interleaved channels of 64-bit little-endian float
+ * bytes representing two interleaved channels of 64-bit native-endian float
  * samples, at 44.1kHz.
  */
 const ALSA_AUDIO_OUTPUT_COMMAND = Object.freeze([
