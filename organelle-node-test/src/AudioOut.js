@@ -1,4 +1,5 @@
 import { spawn } from 'child_process';
+import delay from 'delay';
 import { fdatasync } from 'fs';
 import { promisify } from 'util';
 
@@ -29,7 +30,7 @@ const ALSA_AUDIO_OUTPUT_COMMAND = Object.freeze([
   '--duration=0', // `0` means "forever."
   `--format=${SAMPLE_FORMAT}`,
   '--nonblock',
-  '--quiet',
+  //'--quiet',
   `--rate=${SAMPLE_RATE_HZ}`
 ]);
 
@@ -43,7 +44,7 @@ const SOX_AUDIO_OUTPUT_COMMAND = Object.freeze([
   '--channels=2',
   '--encoding=floating-point',
   `--endian=${Endianness.isLittleEndian() ? 'little' : 'big'}`,
-  '--no-show-progress', // a/k/a `--quiet` or `--silent` on most utilities.
+  //'--no-show-progress', // a/k/a `--quiet` or `--silent` on most utilities.
   `--rate=${SAMPLE_RATE_HZ}`,
   '--type=raw',
   '-', // Read from `stdin`.
@@ -162,7 +163,12 @@ export class AudioOut {
     const stream = this._process.stdin;
     await promisify((cb) => stream.end(cb))();
 
-    console.log('Stopping audio...');
-    this._process.kill();
+    console.log('Waiting a few moments...');
+    await delay(5000);
+
+    if (this._running) {
+      console.log('Stopping audio...');
+      this._process.kill();
+    }
   }
 }
