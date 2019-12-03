@@ -75,6 +75,9 @@ export class AudioOut {
      * written that the underlying system has yet to issue a callback for.
      */
     this._pendingCount = 0;
+
+    /** {int} For debugging, number of samples written. */
+    this._samplesWritten = 0;
   }
 
   /**
@@ -109,7 +112,10 @@ export class AudioOut {
 
     await writeResult;
     this._pendingCount -= sampleCount;
-    console.log('Wrote audio data.');
+
+    this._samplesWritten += sampleCount;
+    const secs = this._samplesWritten / SAMPLE_RATE_HZ;
+    console.log('Wrote audio data.', secs.toFixed(2));
   }
 
   /**
@@ -133,6 +139,7 @@ export class AudioOut {
     this._process.on('exit', () => {
       this._process = null;
       this._running = false;
+      console.log('Audio process exited.');
     });
 
     this._process.stdout.on('data', (data) => console.log(data.toString()));
@@ -144,11 +151,18 @@ export class AudioOut {
    * if audio output isn't actually running.
    */
   async stop() {
-    if (! this._running) {
+    if (!this._running) {
       // Not running.
+      console.log('Audio not running!');
       return;
     }
 
+    console.log('Flushing audio...');
+
+    const stream = this._process.stdin;
+    await promisify((cb) => stream.end(cb))();
+
+    console.log('Stopping audio...');
     this._process.kill();
   }
 }

@@ -104,9 +104,11 @@ async function doAudio() {
   const audioOut = new AudioOut();
   await audioOut.start();
 
+  console.log('Outputting audio...');
   for (let i = 0; i < TOTAL_SAMPLES_OUT; i += WAVELEN_SAMPLES) {
     await audioOut.output(buf);
   }
+  console.log('Done outputting audio!');
 
   await audioOut.stop();
 }
