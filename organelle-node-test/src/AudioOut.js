@@ -75,13 +75,6 @@ export class AudioOut {
      * written that the underlying system has yet to issue a callback for.
      */
     this._pendingCount = 0;
-
-    /**
-     * {Promise|null} Promise which gets resolved when the most recently-made
-     * call to {@link #output} completes. Used to serialize calls to that
-     * method.
-     */
-    this._lastOutputDone = null;
   }
 
   /**
@@ -142,8 +135,8 @@ export class AudioOut {
       this._running = false;
     });
 
-    this._process.stdout.on('data', (data) => console.log(data));
-    this._process.stderr.on('data', (data) => console.log(data));
+    this._process.stdout.on('data', (data) => console.log(data.toString()));
+    this._process.stderr.on('data', (data) => console.log(data.toString()));
   }
 
   /**
