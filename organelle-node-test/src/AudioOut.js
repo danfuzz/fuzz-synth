@@ -141,6 +141,9 @@ export class AudioOut {
       this._process = null;
       this._running = false;
     });
+
+    this._process.stdout.on('data', (data) => console.log(data));
+    this._process.stderr.on('data', (data) => console.log(data));
   }
 
   /**
