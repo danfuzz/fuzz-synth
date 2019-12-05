@@ -89,7 +89,7 @@ async function sendStuff(port) {
 async function doAudio() {
   const SAMPLE_RATE_HZ    = 44100;
   const CHANNELS          = 2;
-  const FREQ_HZ           = 440;
+  const FREQ_HZ           = 130.8128; // One octave below middle C.
   const WAVELEN_SAMPLES   = Math.round(SAMPLE_RATE_HZ / FREQ_HZ);
   const INC_PER_SAMPLE    = 2 / WAVELEN_SAMPLES; // `2 === (1 - -1)` (the range).
   const TOTAL_SAMPLES_OUT = 1 * SAMPLE_RATE_HZ;
@@ -98,7 +98,7 @@ async function doAudio() {
   for (let i = 0; i < WAVELEN_SAMPLES; i++) {
     const value = (i * INC_PER_SAMPLE) - 1; // `- 1` so the range is `[-1..1]`.
     buf[i * 2] = buf[(i * 2) + 1] = value;
-    console.log('====', buf[i]);
+    console.log('====', value);
   }
 
   const audioOut = new AudioOut();

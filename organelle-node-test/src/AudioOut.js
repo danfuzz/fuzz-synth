@@ -8,6 +8,9 @@ import { Endianness } from './Endianness.js';
 /** {int} Output sample rate, in Hz. */
 const SAMPLE_RATE_HZ = 44100;
 
+/** {int} Number of channels. */
+const CHANNELS = 2;
+
 /** {int} Desired buffer size, in msec. */
 const BUFFER_TIME_MSEC = 100;
 
@@ -16,6 +19,9 @@ const BUFFER_SAMPLE_COUNT = Math.ceil(BUFFER_TIME_MSEC * SAMPLE_RATE_HZ / 1000);
 
 /** {string} Sample format to use, to reflect the native system endianness. */
 const SAMPLE_FORMAT = Endianness.isLittleEndian() ? 'FLOAT64_LE' : 'FLOAT64_BE';
+
+/** {int} Bytes per (full-channel-count) sample. */
+const BYTES_PER_SAMPLE = CHANNELS * 8; // `8` is the size of a float64.
 
 /**
  * {array<string>} Command to issue (executable to run, and arguments) to start
@@ -26,7 +32,7 @@ const SAMPLE_FORMAT = Endianness.isLittleEndian() ? 'FLOAT64_LE' : 'FLOAT64_BE';
 const ALSA_AUDIO_OUTPUT_COMMAND = Object.freeze([
   'aplay',
   `--buffer-time=${BUFFER_TIME_MSEC * 1000}`, // The argument is in usec, not msec.
-  '--channels=2',
+  `--channels=${CHANNELS}`,
   '--duration=0', // `0` means "forever."
   `--format=${SAMPLE_FORMAT}`,
   '--nonblock',
@@ -41,9 +47,15 @@ const ALSA_AUDIO_OUTPUT_COMMAND = Object.freeze([
 const SOX_AUDIO_OUTPUT_COMMAND = Object.freeze([
   'sox',
   '--bits=64',
-  '--channels=2',
+  `--buffer=${BUFFER_SAMPLE_COUNT * BYTES_PER_SAMPLE}`,
+  `--channels=${CHANNELS}`,
   '--encoding=floating-point',
   `--endian=${Endianness.isLittleEndian() ? 'little' : 'big'}`,
+
+  // Without this, it seems that SoX won't wait for data even if its `stdin` is
+  // still open.
+  '--ignore-length',
+
   //'--no-show-progress', // a/k/a `--quiet` or `--silent` on most utilities.
   `--rate=${SAMPLE_RATE_HZ}`,
   '--type=raw',
@@ -103,7 +115,7 @@ export class AudioOut {
     // **TODO:** Factor out `promisify()`.
     const writeResult = promisify((buf, cb) => stream.write(buf, cb))(usableBuf);
 
-    const sampleCount = buf.length / 2; // `/ 2` because stereo.
+    const sampleCount = buf.length / CHANNELS;
     this._pendingCount += sampleCount;
 
     if (this._pendingCount >= BUFFER_SAMPLE_COUNT) {
@@ -133,6 +145,8 @@ export class AudioOut {
     const [name, ...args] = (process.platform === 'darwin')
       ? SOX_AUDIO_OUTPUT_COMMAND
       : ALSA_AUDIO_OUTPUT_COMMAND;
+
+    console.log('Running:', name, args);
 
     this._process = spawn(name, args);
     this._running = true;
