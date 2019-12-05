@@ -114,7 +114,7 @@ export class AudioOut {
 
     // `write()` requires specifically a `Buffer` or `Uint8Array`. We receive a
     // `Float64Array`, so we need to rewrap.
-    const usableBuf = new Uint8Array(buf.buffer);
+    const usableBuf = new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
 
     // **TODO:** Factor out `promisify()`.
     const writeResult = promisify((buf, cb) => stream.write(buf, cb))(usableBuf);
