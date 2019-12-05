@@ -92,7 +92,7 @@ async function doAudio() {
   const FREQ_HZ           = 130.8128; // One octave below middle C.
   const WAVELEN_SAMPLES   = Math.round(SAMPLE_RATE_HZ / FREQ_HZ);
   const INC_PER_SAMPLE    = 2 / WAVELEN_SAMPLES; // `2 === (1 - -1)` (the range).
-  const TOTAL_SAMPLES_OUT = 1 * SAMPLE_RATE_HZ;
+  const TOTAL_SAMPLES_OUT = 10 * SAMPLE_RATE_HZ;
 
   const buf = new Float64Array(WAVELEN_SAMPLES * 2);
   for (let i = 0; i < WAVELEN_SAMPLES; i++) {
