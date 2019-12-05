@@ -47,7 +47,11 @@ const ALSA_AUDIO_OUTPUT_COMMAND = Object.freeze([
 const SOX_AUDIO_OUTPUT_COMMAND = Object.freeze([
   'sox',
   '--bits=64',
-  `--buffer=${BUFFER_SAMPLE_COUNT * BYTES_PER_SAMPLE}`,
+
+  // Docs say this is a count of bytes, but (based on observed behavior) it
+  // looks like it is actually a count of samples.
+  `--buffer=${BUFFER_SAMPLE_COUNT}`,
+
   `--channels=${CHANNELS}`,
   '--encoding=floating-point',
   `--endian=${Endianness.isLittleEndian() ? 'little' : 'big'}`,

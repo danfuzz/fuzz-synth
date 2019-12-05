@@ -1,7 +1,8 @@
 import { spawn } from 'child_process';
 import delay from 'delay';
-import { fdatasync } from 'fs';
 import { promisify } from 'util';
+
+import { Endianness } from './Endianness.js';
 
 const SAMPLE_RATE_HZ    = 44100;
 const FREQ_HZ           = 130.8128; // One octave below middle C.
@@ -13,7 +14,7 @@ const ALSA_AUDIO_OUTPUT_COMMAND = Object.freeze([
   '--buffer-time=50000', // 50 msec
   '--channels=1',
   '--duration=0', // `0` means "forever."
-  '--format=U8',
+  `--format=${Endianness.isLittleEndian() ? 'U32_LE' : 'U32_BE'}`,
   '--nonblock',
   //'--quiet',
   `--rate=${SAMPLE_RATE_HZ}`
@@ -22,10 +23,11 @@ const ALSA_AUDIO_OUTPUT_COMMAND = Object.freeze([
 const SOX_AUDIO_OUTPUT_COMMAND = Object.freeze([
   'sox',
   //'-V3',
-  '--bits=8',
+  '--bits=32',
   '--buffer=2205',
   '--channels=1',
   '--encoding=unsigned-integer',
+  `--endian=${Endianness.isLittleEndian() ? 'little' : 'big'}`,
   '--ignore-length',
   '--no-show-progress', // a/k/a `--quiet` or `--silent` on most utilities.
   `--rate=${SAMPLE_RATE_HZ}`,
@@ -34,12 +36,13 @@ const SOX_AUDIO_OUTPUT_COMMAND = Object.freeze([
   '--default-device' // Write to the default device.
 ]);
 
-const INC_PER_SAMPLE = 200 / WAVELEN_SAMPLES;
-const singleCycleSaw = new Uint8Array(WAVELEN_SAMPLES);
+const INC_PER_SAMPLE = (0x100000000 * 0.75) / WAVELEN_SAMPLES;
+const singleCycleSaw = new Uint32Array(WAVELEN_SAMPLES);
+const waveBuf = new Uint8Array(singleCycleSaw.buffer);
 for (let i = 0; i < WAVELEN_SAMPLES; i++) {
-  const value = (i * INC_PER_SAMPLE) + 28;
+  const value = (i * INC_PER_SAMPLE) + ((1 << 32) * 0.05);
   singleCycleSaw[i] = value;
-  console.log('====', value);
+  console.log('====', singleCycleSaw[i], value);
 }
 console.log(`==== Single cycle is ${WAVELEN_SAMPLES} samples.`);
 
@@ -71,7 +74,7 @@ async function sendStuff() {
       break;
     }
 
-    const writeResult = promisify((buf, cb) => stream.write(buf, cb))(singleCycleSaw);
+    const writeResult = promisify((buf, cb) => stream.write(buf, cb))(waveBuf);
 
     await writeResult;
 
