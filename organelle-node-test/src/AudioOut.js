@@ -130,9 +130,12 @@ export class AudioOut {
     await writeResult;
     this._pendingCount -= sampleCount;
 
+    const prevSecs = (this._samplesWritten / SAMPLE_RATE_HZ).toFixed(1);
     this._samplesWritten += sampleCount;
-    const secs = this._samplesWritten / SAMPLE_RATE_HZ;
-    console.log(`Wrote audio data: ${secs.toFixed(2)} sec total.`);
+    const secs = (this._samplesWritten / SAMPLE_RATE_HZ).toFixed(1);
+    if (prevSecs !== secs) {
+      console.log(`Wrote audio data: ${secs} sec total.`);
+    }
   }
 
   /**
