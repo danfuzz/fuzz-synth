@@ -114,7 +114,7 @@ export class AudioOut {
 
     // `write()` requires specifically a `Buffer` or `Uint8Array`. We receive a
     // `Float64Array`, so we need to rewrap.
-    const usableBuf = new Uint8Array(buf.array);
+    const usableBuf = new Uint8Array(buf.buffer);
 
     // **TODO:** Factor out `promisify()`.
     const writeResult = promisify((buf, cb) => stream.write(buf, cb))(usableBuf);
@@ -132,7 +132,7 @@ export class AudioOut {
 
     this._samplesWritten += sampleCount;
     const secs = this._samplesWritten / SAMPLE_RATE_HZ;
-    console.log('Wrote audio data.', secs.toFixed(2));
+    console.log(`Wrote audio data: ${secs.toFixed(2)} sec total.`);
   }
 
   /**
