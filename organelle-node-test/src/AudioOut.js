@@ -60,7 +60,7 @@ const SOX_AUDIO_OUTPUT_COMMAND = Object.freeze([
   // still open.
   '--ignore-length',
 
-  //'--no-show-progress', // a/k/a `--quiet` or `--silent` on most utilities.
+  '--no-show-progress', // a/k/a `--quiet` or `--silent` on most utilities.
   `--rate=${SAMPLE_RATE_HZ}`,
   '--type=raw',
   '-', // Read from `stdin`.

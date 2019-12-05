@@ -91,12 +91,14 @@ async function doAudio() {
   const CHANNELS          = 2;
   const FREQ_HZ           = 130.8128; // One octave below middle C.
   const WAVELEN_SAMPLES   = Math.round(SAMPLE_RATE_HZ / FREQ_HZ);
-  const INC_PER_SAMPLE    = 2 / WAVELEN_SAMPLES; // `2 === (1 - -1)` (the range).
+  const INC_PER_SAMPLE    = 2 / WAVELEN_SAMPLES; // `2 === (1 - -1)` (the full range).
+  const WAVE_AMP          = 0.8;
   const TOTAL_SAMPLES_OUT = 10 * SAMPLE_RATE_HZ;
 
   const buf = new Float64Array(WAVELEN_SAMPLES * 2);
   for (let i = 0; i < WAVELEN_SAMPLES; i++) {
-    const value = (i * INC_PER_SAMPLE) - 1; // `- 1` so the range is `[-1..1]`.
+    const fullAmpValue = (i * INC_PER_SAMPLE) - 1; // `- 1` so the range is `[-1..1]`.
+    const value        = fullAmpValue * WAVE_AMP;
     buf[i * 2] = buf[(i * 2) + 1] = value;
     console.log('====', value);
   }
