@@ -8,7 +8,7 @@ function doOsc() {
     localAddress: '127.0.0.1',
     localPort: 4000, // The Organelle OS expects to speak with the patch on UDP port 4000.
     remoteAddress: '127.0.0.1',
-    remotePort: 4001, // The Organelle OS exposes an OSC on UDP port 4001.
+    remotePort: 4001, // The Organelle OS exposes an OSC receiver on UDP port 4001.
     metadata: true
   });
 
