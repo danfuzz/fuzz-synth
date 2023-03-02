@@ -8,6 +8,6 @@
   "main": "./src/main.js",
   "dependencies": {
     "delay": "4.3.0",
-    "osc": "^2.3.1"
+    "osc": "^2.4.3"
   }
 }
